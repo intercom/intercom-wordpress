@@ -13,6 +13,11 @@ class SnippetSettings
     return json_encode($this->getRawData());
   }
 
+  public function appId()
+  {
+    return $this->getRawData()["app_id"];
+  }
+
   private function getRawData()
   {
     return $this->raw_data;
