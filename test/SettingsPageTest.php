@@ -13,15 +13,15 @@ class SettingsPageTest extends PHPUnit_Framework_TestCase
       <tbody>
         <tr>
           <td><b>App ID</b></td>
-          <td><input name="app_id" type="text" value="" placeholder="App ID"></td>
+          <td><input name="intercom[app_id]" type="text" value="" placeholder="App ID"></td>
         </tr>
         <tr>
           <td><b>Secret</b></td>
-          <td><input name="secret" type="text" value="" placeholder="Secret"></td>
+          <td><input name="intercom[secret]" type="text" value="" placeholder="Secret"></td>
         </tr>
       </tbody>
     </table>
-    <input type="submit" value="Save">
+    <input name="intercom-submit" type="submit" value="Save">
   </form>
 </div>
 END;
@@ -40,15 +40,15 @@ END;
       <tbody>
         <tr>
           <td><b>App ID</b></td>
-          <td><input name="app_id" type="text" value="foo" placeholder="App ID"></td>
+          <td><input name="intercom[app_id]" type="text" value="foo" placeholder="App ID"></td>
         </tr>
         <tr>
           <td><b>Secret</b></td>
-          <td><input name="secret" type="text" value="bar" placeholder="Secret"></td>
+          <td><input name="intercom[secret]" type="text" value="bar" placeholder="Secret"></td>
         </tr>
       </tbody>
     </table>
-    <input type="submit" value="Save">
+    <input name="intercom-submit" type="submit" value="Save">
   </form>
 </div>
 END;
