@@ -17,4 +17,23 @@ function add_intercom_snippet()
   echo $snippet->html();
 }
 
+function add_settings_page()
+{
+  add_options_page(
+    'Intercom Settings',
+    'Intercom',
+    'manage_options',
+    'intercom',
+    'render_options_page'
+  );
+}
+
+function render_options_page()
+{
+  $settings_page = new SettingsPage(array());
+  echo $settings_page->html();
+}
+
 add_action('wp_footer', 'add_intercom_snippet');
+add_action( 'admin_menu', 'add_settings_page');
+add_action( 'network_admin_menu', 'add_settings_page');

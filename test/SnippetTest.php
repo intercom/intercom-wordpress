@@ -1,7 +1,7 @@
 <?php
 class SnippetTest extends PHPUnit_Framework_TestCase
 {
-  public function testFoo()
+  public function testGeneratedHtml()
   {
     $settings = new SnippetSettings(array("app_id" => "foo", "name" => "Nikola Tesla"));
     $snippet = new Snippet($settings);
