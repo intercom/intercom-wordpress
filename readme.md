@@ -1,5 +1,7 @@
 # Intercom / Wordpress
 
+[![Build Status](https://travis-ci.org/intercom/intercom-wordpress.svg?branch=master)](https://travis-ci.org/intercom/intercom-wordpress)
+
 # Beta
 
 This plugin for Wordpress is in active development and should not be used in production apps.

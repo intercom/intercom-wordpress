@@ -3,12 +3,12 @@ class SettingsPageTest extends PHPUnit_Framework_TestCase
 {
   public function testEmptyGeneratedHtml()
   {
-    $settings_page = new SettingsPage(array());
+    $settings_page = new SettingsPage(array("app_id" => NULL, "secret" => NULL));
     $expectedHtml = <<<END
 <h1>Intercom Settings</h1>
 
 <div id="intercom-settings-container" class="postbox-container">
-  <form method="post" action="$action">
+  <form method="post" action="">
     <table class="form-table">
       <tbody>
         <tr>
@@ -35,7 +35,7 @@ END;
 <h1>Intercom Settings</h1>
 
 <div id="intercom-settings-container" class="postbox-container">
-  <form method="post" action="$action">
+  <form method="post" action="">
     <table class="form-table">
       <tbody>
         <tr>

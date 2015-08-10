@@ -35,12 +35,11 @@ END;
   {
     $app_id = $this->getSettings()['app_id'];
     $secret = $this->getSettings()['secret'];
-
     return <<<END
 <h1>Intercom Settings</h1>
 
 <div id="intercom-settings-container" class="postbox-container">
-  <form method="post" action="$action">
+  <form method="post" action="">
     <table class="form-table">
       <tbody>
         <tr>
