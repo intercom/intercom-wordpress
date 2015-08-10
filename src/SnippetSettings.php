@@ -2,10 +2,12 @@
 class SnippetSettings
 {
   private $raw_data = array();
+  private $wordpress_user = NULL;
 
-  public function __construct($raw_data)
+  public function __construct($raw_data, $wordpress_user = NULL)
   {
     $this->raw_data = $this->validateRawData($raw_data);
+    $this->wordpress_user = $wordpress_user;
   }
 
   public function json()
@@ -20,7 +22,7 @@ class SnippetSettings
 
   private function getRawData()
   {
-    return $this->raw_data;
+    return (new User($this->wordpress_user, $this->raw_data))->buildSettings();
   }
 
   private function validateRawData($raw_data)
