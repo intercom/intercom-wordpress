@@ -16,7 +16,10 @@ include "src/autoload.php";
 
 function add_intercom_snippet()
 {
-  $snippet_settings = new SnippetSettings(array("app_id" => get_option('intercom-app-id')));
+  $snippet_settings = new SnippetSettings(
+    array("app_id" => get_option('intercom-app-id')),
+    wp_get_current_user()
+  );
   $snippet = new Snippet($snippet_settings);
   echo $snippet->html();
 }
