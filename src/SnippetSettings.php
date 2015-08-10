@@ -2,11 +2,13 @@
 class SnippetSettings
 {
   private $raw_data = array();
+  private $secret = NULL;
   private $wordpress_user = NULL;
 
-  public function __construct($raw_data, $wordpress_user = NULL)
+  public function __construct($raw_data, $secret = NULL, $wordpress_user = NULL)
   {
     $this->raw_data = $this->validateRawData($raw_data);
+    $this->secret = $secret;
     $this->wordpress_user = $wordpress_user;
   }
 
@@ -22,7 +24,9 @@ class SnippetSettings
 
   private function getRawData()
   {
-    return (new User($this->wordpress_user, $this->raw_data))->buildSettings();
+    $settings = (new User($this->wordpress_user, $this->raw_data))->buildSettings();
+    $secureModeCalculator = new SecureModeCalculator($settings, $this->secret);
+    return array_merge($settings, $secureModeCalculator->secureModeComponent());
   }
 
   private function validateRawData($raw_data)
