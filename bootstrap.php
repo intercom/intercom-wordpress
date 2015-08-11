@@ -50,7 +50,7 @@ function render_options_page()
 function settings() {
   register_setting('intercom', 'intercom');
   if (isset($_POST['_wpnonce']) and wp_verify_nonce($_POST[ '_wpnonce'], 'intercom-update')
-      and isset($_POST[ 'intercom-submit' ] ) and is_admin()) {
+      and isset($_POST[ 'intercom-submit' ] ) and current_user_can('manage_options')) {
     $validator = new Validator($_POST["intercom"], function($x) { return wp_kses(trim($x)); });
     update_option("intercom-app-id", $validator->validAppId());
     update_option("intercom-secret", $validator->validSecret());
