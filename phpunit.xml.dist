@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit bootstrap="./src/autoload.php">
+<phpunit bootstrap="./bootstrap.php">
     <testsuites>
         <testsuite name="Intercom Wordpress Testsuite">
             <directory>./test</directory>
