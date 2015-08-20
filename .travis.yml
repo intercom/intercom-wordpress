@@ -6,4 +6,4 @@ php:
 before_install:
   - wget https://phar.phpunit.de/phpunit.phar
 script:
-  - php phpunit.phar
+  - TEST=1 php phpunit.phar
