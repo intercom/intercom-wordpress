@@ -11,7 +11,7 @@ This plugin for Wordpress is in active development and should not be used in pro
 Running tests requires [phpunit](https://phpunit.de/).
 
 ```php
-phpunit --bootstrap src/autoload.php test
+TEST=1 phpunit
 ```
 
 # Contributing
