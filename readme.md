@@ -28,7 +28,7 @@ Once filled out, the Intercom widget will automatically appear:
 
 If a `$current_user` is present, we use their email as an identifier in the widget.
 
-Otherwise the widget operates in [Acquire mode](https://www.intercom.io/live-chat) (if available). This allows you to chat to anonymous users.
+Otherwise the widget operates in [Acquire mode](https://www.intercom.io/live-chat) (if available). This allows you to talk with anonymous visitors on your Wordpress site.
 
 # Contributing
 
