@@ -4,15 +4,31 @@
 
 # Beta
 
-This plugin for Wordpress is in active development and should not be used in production apps.
+This plugin for Wordpress is in active development.
 
-# Testing
+# Local Testing
 
 Running tests requires [phpunit](https://phpunit.de/).
 
 ```php
 TEST=1 phpunit
 ```
+
+# Usage
+
+Installing this plugin provides a new Intercom settings page, which allows you to configure your app id and secure mode secret:
+
+<img src="https://raw.githubusercontent.com/intercom/intercom-wordpress/master/screenshots/settings.png"/>
+
+Once filled out, the Intercom widget will automatically appear:
+
+<img src="https://raw.githubusercontent.com/intercom/intercom-wordpress/master/screenshots/widget.png"/>
+
+# Users
+
+If a `$current_user` is present, we use their email as an identifier in the widget.
+
+Otherwise the widget operates in [Acquire mode](https://www.intercom.io/live-chat) (if available). This allows you to talk with anonymous visitors on your Wordpress site.
 
 # Contributing
 
