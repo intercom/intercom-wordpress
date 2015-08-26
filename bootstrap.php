@@ -285,6 +285,10 @@ function add_settings_page()
 
 function render_options_page()
 {
+  if (!current_user_can('manage_options'))
+  {
+    wp_die('You do not have sufficient permissions to access Intercom settings');
+  }
   $settings_page = new SettingsPage(array("app_id" => get_option('intercom-app-id'), "secret" => get_option('intercom-secret')));
   echo $settings_page->css();
   echo $settings_page->htmlUnclosed();
