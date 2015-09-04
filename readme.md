@@ -20,9 +20,7 @@ Installing this plugin provides a new Intercom settings page, which allows you t
 
 <img src="https://raw.githubusercontent.com/intercom/intercom-wordpress/master/screenshots/settings.png"/>
 
-Once filled out, the Intercom widget will automatically appear:
-
-<img src="https://raw.githubusercontent.com/intercom/intercom-wordpress/master/screenshots/widget.png"/>
+Once filled out, the Intercom widget will automatically appear on your site.
 
 # Users
 
