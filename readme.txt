@@ -5,7 +5,7 @@ Tags: intercom, customer, chat
 Requires at least: 4.2.0
 Tested up to: 4.2.4
 
-Official Intercom support for WordPress.
+Official Intercom support for WordPress
 
 == Description ==
 
