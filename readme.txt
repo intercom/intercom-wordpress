@@ -9,6 +9,8 @@ This plugin allows you to easily install the Intercom widget on your Wordpress s
 
 == Description ==
 
+Please note that this plugin is in Beta.
+
 With the Intercom plugin for Wordpress, you can chat to both logged-in and anonymous users (using [Acquire](https://www.intercom.io/live-chat)).
 
 Installing this plugin provides a new Intercom settings page, which allows you to configure your app id and secure mode secret. Once filled out, the Intercom widget will automatically appear.
@@ -25,5 +27,5 @@ If `$current_user` is present, their email will be used as an identifier in the 
 
 == Changelog ==
 
-= 1.0 =
+= 1.0.1 =
 * First version

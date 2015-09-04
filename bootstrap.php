@@ -2,10 +2,10 @@
 /*
 Plugin Name: Intercom for WordPress (Official)
 Plugin URI: https://wordpress.org/plugins/intercom
-Description: Official <a href="https://www.intercom.io">Intercom</a> support for Intercom.
+Description: Official <a href="https://www.intercom.io">Intercom</a> support for Wordpress.
 Author: Bob Long
 Author URI: https://www.intercom.io
-Version: 0.1.0
+Version: 1.0.1
  */
 
 class SecureModeCalculator
