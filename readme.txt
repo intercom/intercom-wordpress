@@ -5,7 +5,7 @@ Tags: intercom, customer, chat
 Requires at least: 4.2.0
 Tested up to: 4.2.4
 
-This plugin allows you to easily install the Intercom widget on your Wordpress site.
+Official Intercom support for WordPress.
 
 == Description ==
 
