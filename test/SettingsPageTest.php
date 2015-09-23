@@ -22,7 +22,7 @@ class SettingsPageTest extends PHPUnit_Framework_TestCase
       </tbody>
     </table>
     <input name="intercom-submit" type="submit" value="Save">
-  </form>
+  </form><p>Need an Intercom account? <a href="https://app.intercom.io/a/get_started">Get started</a>.</p>
 </div>
 END;
     $this->assertEquals($expectedHtml, $settings_page->html());

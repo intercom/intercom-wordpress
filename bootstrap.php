@@ -117,9 +117,10 @@ END;
 
   public function htmlClosed()
   {
+    $onboarding_markup = $this->getOnboardingLinkIfNoAppId();
     return <<<END
 
-  </form>
+  </form>$onboarding_markup
 </div>
 END;
   }
@@ -132,6 +133,16 @@ END;
   private function getSettings()
   {
     return $this->settings;
+  }
+
+  private function getOnboardingLinkIfNoAppId()
+  {
+    $app_id = $this->getSettings()['app_id'];
+    if(!$app_id) {
+      return '<p>Need an Intercom account? <a href="https://app.intercom.io/a/get_started">Get started</a>.</p>';
+    } else {
+      return '';
+    }
   }
 }
 
