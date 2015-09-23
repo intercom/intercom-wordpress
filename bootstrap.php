@@ -275,7 +275,7 @@ if ($_ENV['TEST'] != '1') {
 function add_intercom_snippet()
 {
   $snippet_settings = new SnippetSettings(
-    array("app_id" => get_option('intercom-app-id')),
+    array("app_id" => get_option('intercom')['app_id']),
     get_option("intercom-secret"),
     wp_get_current_user()
   );
@@ -300,7 +300,7 @@ function render_options_page()
   {
     wp_die('You do not have sufficient permissions to access Intercom settings');
   }
-  $settings_page = new SettingsPage(array("app_id" => get_option('intercom-app-id'), "secret" => get_option('intercom-secret')));
+  $settings_page = new SettingsPage(array("app_id" => get_option('intercom')['app_id'], "secret" => get_option('intercom')['secret']));
   echo $settings_page->css();
   echo $settings_page->htmlUnclosed();
   wp_nonce_field('intercom-update');
@@ -312,8 +312,7 @@ function settings() {
   if (isset($_POST['_wpnonce']) and wp_verify_nonce($_POST[ '_wpnonce'], 'intercom-update')
       and isset($_POST[ 'intercom-submit' ] ) and current_user_can('manage_options')) {
     $validator = new Validator($_POST["intercom"], function($x) { return wp_kses(trim($x), array()); });
-    update_option("intercom-app-id", $validator->validAppId());
-    update_option("intercom-secret", $validator->validSecret());
+    update_option("intercom", array("app_id" => $validator->validAppId(), "secret" => $validator->validSecret()));
     wp_safe_redirect(wp_get_referer());
   }
 }
