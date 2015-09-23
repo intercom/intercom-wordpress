@@ -139,7 +139,7 @@ END;
   {
     $app_id = $this->getSettings()['app_id'];
     if(!$app_id) {
-      return '<p>Need an Intercom account? <a href="https://app.intercom.io/a/get_started">Get started</a>.</p>';
+      return '<p>Need an Intercom account? <a target="_blank" href="https://app.intercom.io/a/get_started">Get started</a>.</p>';
     } else {
       return '';
     }
