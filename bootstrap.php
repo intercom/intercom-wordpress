@@ -276,7 +276,7 @@ function add_intercom_snippet()
 {
   $snippet_settings = new SnippetSettings(
     array("app_id" => get_option('intercom')['app_id']),
-    get_option("intercom-secret"),
+    get_option('intercom')['secret'],
     wp_get_current_user()
   );
   $snippet = new Snippet($snippet_settings);
