@@ -67,26 +67,13 @@ class SettingsPage
     $this->settings = $settings;
   }
 
-  public function css()
+  public function dismissibleMessage($text)
   {
     return <<<END
-  <style scoped>
-    #intercom-settings-container {
-      width: 600px;
-      background-color: white;
-      padding: 20px;
-      border: 1px solid #c9d7df;
-      border-radius: 3px;
-    }
-    input[name=intercom-submit] {
-      background-image: linear-gradient(to bottom, #038bcf, #0386cd);
-      border-color: #006CA6;
-      color: white;
-      text-shadow: 0 1px 0 rgba(0,0,0,0.2);
-      width: 80px;
-      border-radius: 3px;
-    }
-  </style>
+  <div id="message" class="updated notice is-dismissible">
+    <p>$text</p>
+    <button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button>
+  </div>
 END;
   }
 
@@ -94,24 +81,46 @@ END;
   {
     $app_id = $this->getSettings()['app_id'];
     $secret = $this->getSettings()['secret'];
-    return <<<END
-<h1>Intercom Settings</h1>
 
-<div id="intercom-settings-container" class="postbox-container">
+    if (empty($secret)) {
+      $secret_row_style = 'display: none;';
+      $secret_link_style = '';
+    } else {
+      $secret_row_style = '';
+      $secret_link_style = 'display: none;';
+    }
+
+    $dismissable_message = '';
+    if ($_GET['saved']) {
+      $dismissable_message = $this->dismissibleMessage('App ID saved.');
+    }
+
+    if ($_GET['appId']) {
+      $app_id = $_GET['appId'];
+      $dismissable_message = $this->dismissibleMessage('We’ve copied your new Intercom app ID below. Click to save changes and then close this window to finish signing up for Intercom.');
+    }
+
+    return <<<END
+<div class="wrap">
+<h1>Intercom Settings</h1>
+  $dismissable_message
   <form method="post" action="">
     <table class="form-table">
       <tbody>
         <tr>
-          <td><b>App ID</b></td>
-          <td><input name="intercom[app_id]" type="text" value="$app_id" placeholder="App ID"></td>
+          <th scope="row"><label for="intercom_app_id">App ID</label></th>
+          <td><input id="intercom_app_id" name="intercom[app_id]" type="text" value="$app_id" placeholder="App ID"></td>
         </tr>
-        <tr>
-          <td><b>Secret</b></td>
-          <td><input name="intercom[secret]" type="text" value="$secret" placeholder="Secret"></td>
+        <tr id="intercom_secret_key_row" style="$secret_row_style">
+          <th scope="row"><label for="intercom_secret">Secret Key (optional)</label></th>
+          <td><input id="intercom_secret" name="intercom[secret]" type="text" value="$secret" placeholder="Secret Key"></td>
         </tr>
       </tbody>
     </table>
-    <input name="intercom-submit" type="submit" value="Save">
+    <p class="submit">
+      <input name="intercom-submit" type="submit" value="Save Changes" class="button button-primary">
+      <a id="intercom_secret_key_show_link" style="$secret_link_style margin-left: 20px" href="javascript: jQuery('#intercom_secret_key_row').show(); jQuery('#intercom_secret_key_show_link').hide(); jQuery('#intercom_secret').focus();">Add your Intercom secret key (optional)</a>
+    </p>
 END;
   }
 
@@ -301,7 +310,6 @@ function render_options_page()
     wp_die('You do not have sufficient permissions to access Intercom settings');
   }
   $settings_page = new SettingsPage(array("app_id" => get_option('intercom')['app_id'], "secret" => get_option('intercom')['secret']));
-  echo $settings_page->css();
   echo $settings_page->htmlUnclosed();
   wp_nonce_field('intercom-update');
   echo $settings_page->htmlClosed();
@@ -313,7 +321,7 @@ function settings() {
       and isset($_POST[ 'intercom-submit' ] ) and current_user_can('manage_options')) {
     $validator = new Validator($_POST["intercom"], function($x) { return wp_kses(trim($x), array()); });
     update_option("intercom", array("app_id" => $validator->validAppId(), "secret" => $validator->validSecret()));
-    wp_safe_redirect(wp_get_referer());
+    wp_safe_redirect(admin_url('options-general.php?page=intercom&saved=1'));
   }
 }
 
