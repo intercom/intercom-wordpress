@@ -188,11 +188,12 @@ class SnippetSettings
   private $secret = NULL;
   private $wordpress_user = NULL;
 
-  public function __construct($raw_data, $secret = NULL, $wordpress_user = NULL)
+  public function __construct($raw_data, $secret = NULL, $wordpress_user = NULL, $constants = array('ICL_LANGUAGE_CODE' => 'language_override'))
   {
     $this->raw_data = $this->validateRawData($raw_data);
     $this->secret = $secret;
     $this->wordpress_user = $wordpress_user;
+    $this->constants = $constants;
   }
 
   public function json()
@@ -209,7 +210,19 @@ class SnippetSettings
   {
     $settings = (new User($this->wordpress_user, $this->raw_data))->buildSettings();
     $secureModeCalculator = new SecureModeCalculator($settings, $this->secret);
-    return array_merge($settings, $secureModeCalculator->secureModeComponent());
+    $result = array_merge($settings, $secureModeCalculator->secureModeComponent());
+    $result = $this->mergeConstants($result);
+    return $result;
+  }
+
+  private function mergeConstants($settings) {
+    foreach($this->constants as $key => $value) {
+      if (defined($key)) {
+        $const_val = constant($key);
+        $settings = array_merge($settings, array($value => $const_val));
+      }
+    }
+    return $settings;
   }
 
   private function validateRawData($raw_data)
