@@ -175,7 +175,7 @@ class Snippet
 
     return <<<HTML
 <script>
-  window.intercomSettings = JSON.parse('$snippet_json');
+  window.intercomSettings = $snippet_json;
 </script>
 <script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/$app_id';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
 HTML;
@@ -218,7 +218,7 @@ class SnippetSettings
   private function mergeConstants($settings) {
     foreach($this->constants as $key => $value) {
       if (defined($key)) {
-        $const_val = constant($key);
+        $const_val = WordpressEscaper::escJS(constant($key));
         $settings = array_merge($settings, array($value => $const_val));
       }
     }
@@ -231,6 +231,18 @@ class SnippetSettings
       throw new Exception("app_id is required");
     }
     return $raw_data;
+  }
+}
+
+class WordpressEscaper
+{
+  public static function escJS($value)
+  {
+    if (function_exists('esc_js')) {
+      return esc_js($value);
+    } else {
+      return $value;
+    }
   }
 }
 
@@ -253,7 +265,7 @@ class User
     }
     if (!empty($this->wordpress_user->user_email))
     {
-      $this->settings["email"] = $this->wordpress_user->user_email;
+      $this->settings["email"] = WordpressEscaper::escJS($this->wordpress_user->user_email);
     }
     return $this->settings;
   }
