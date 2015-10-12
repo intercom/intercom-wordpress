@@ -79,8 +79,8 @@ END;
 
   public function htmlUnclosed()
   {
-    $app_id = $this->getSettings()['app_id'];
-    $secret = $this->getSettings()['secret'];
+    $app_id = WordpressEscaper::escAttr($this->getSettings()['app_id']);
+    $secret = WordpressEscaper::escAttr($this->getSettings()['secret']);
 
     if (empty($secret)) {
       $secret_row_style = 'display: none;';
@@ -96,7 +96,7 @@ END;
     }
 
     if ($_GET['appId']) {
-      $app_id = $_GET['appId'];
+      $app_id = WordpressEscaper::escAttr($_GET['appId']);
       $dismissable_message = $this->dismissibleMessage('We’ve copied your new Intercom app ID below. Click to save changes and then close this window to finish signing up for Intercom.');
     }
 
@@ -236,6 +236,15 @@ class SnippetSettings
 
 class WordpressEscaper
 {
+  public static function escAttr($value)
+  {
+    if (function_exists('esc_attr')) {
+      return esc_attr($value);
+    } else {
+      return $value;
+    }
+  }
+
   public static function escJS($value)
   {
     if (function_exists('esc_js')) {
@@ -309,8 +318,8 @@ if ($_ENV['TEST'] != '1') {
 function add_intercom_snippet()
 {
   $snippet_settings = new SnippetSettings(
-    array("app_id" => get_option('intercom')['app_id']),
-    get_option('intercom')['secret'],
+    array("app_id" => WordpressEscaper::escJS(get_option('intercom')['app_id'])),
+    WordpressEscaper::escJS(get_option('intercom')['secret']),
     wp_get_current_user()
   );
   $snippet = new Snippet($snippet_settings);
