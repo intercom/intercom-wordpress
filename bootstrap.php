@@ -312,7 +312,7 @@ class Validator
   }
 }
 
-if ($_ENV['TEST'] != '1') {
+if (getenv('TEST') != '1') {
   if (!defined('ABSPATH')) exit;
 
   define( 'WP_DEBUG', true );
@@ -366,7 +366,7 @@ function settings() {
   }
 }
 
-if ($_ENV['TEST'] != '1') {
+if (getenv('TEST') != '1') {
   add_action('wp_footer', 'add_intercom_snippet');
   add_action('admin_menu', 'add_settings_page');
   add_action('network_admin_menu', 'add_settings_page');
