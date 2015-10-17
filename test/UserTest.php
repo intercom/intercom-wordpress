@@ -13,19 +13,22 @@ class UserTest extends PHPUnit_Framework_TestCase
   public function testEmail()
   {
     $settings = array();
-    $built_settings = (new User(new FakeWordpressUser(), $settings))->buildSettings();
+    $user = new User(new FakeWordpressUser(), $settings);
+    $built_settings = $user->buildSettings();
     $this->assertEquals("foo@bar.com", $built_settings["email"]);
   }
   public function testNoUser()
   {
     $settings = array();
-    $built_settings = (new User(NULL, $settings))->buildSettings();
+    $user = new User(NULL, $settings);
+    $built_settings = $user->buildSettings();
     $this->assertEquals(false, array_key_exists('email', $built_settings));
   }
   public function testNoUserEmail()
   {
     $settings = array();
-    $built_settings = (new User(new FakeWordpressUserNoEmail(), $settings))->buildSettings();
+    $user = new User(new FakeWordpressUserNoEmail(), $settings);
+    $built_settings = $user->buildSettings();
     $this->assertEquals(false, array_key_exists('email', $built_settings));
   }
 }

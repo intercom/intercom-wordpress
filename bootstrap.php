@@ -44,7 +44,8 @@ class SecureModeCalculator
 
   private function secureModeHashComponent($key)
   {
-    return array("user_hash" => hash_hmac("sha256", $this->getRawData()[$key], $this->getSecretKey()));
+    $raw_data = $this->getRawData();
+    return array("user_hash" => hash_hmac("sha256", $raw_data[$key], $this->getSecretKey()));
   }
 
   private function getSecretKey()
@@ -79,8 +80,9 @@ END;
 
   public function htmlUnclosed()
   {
-    $app_id = WordpressEscaper::escAttr($this->getSettings()['app_id']);
-    $secret = WordpressEscaper::escAttr($this->getSettings()['secret']);
+    $settings = $this->getSettings();
+    $app_id = WordpressEscaper::escAttr($settings['app_id']);
+    $secret = WordpressEscaper::escAttr($settings['secret']);
 
     if (empty($secret)) {
       $secret_row_style = 'display: none;';
@@ -146,7 +148,8 @@ END;
 
   private function getOnboardingLinkIfNoAppId()
   {
-    $app_id = $this->getSettings()['app_id'];
+    $settings = $this->getSettings();
+    $app_id = $settings['app_id'];
     if(!$app_id) {
       return '<p>Need an Intercom account? <a target="_blank" href="https://app.intercom.io/a/get_started">Get started</a>.</p>';
     } else {
@@ -203,12 +206,14 @@ class SnippetSettings
 
   public function appId()
   {
-    return $this->getRawData()["app_id"];
+    $raw_data = $this->getRawData();
+    return $raw_data["app_id"];
   }
 
   private function getRawData()
   {
-    $settings = (new User($this->wordpress_user, $this->raw_data))->buildSettings();
+    $user = new User($this->wordpress_user, $this->raw_data);
+    $settings = $user->buildSettings();
     $secureModeCalculator = new SecureModeCalculator($settings, $this->secret);
     $result = array_merge($settings, $secureModeCalculator->secureModeComponent());
     $result = $this->mergeConstants($result);
@@ -317,9 +322,10 @@ if ($_ENV['TEST'] != '1') {
 
 function add_intercom_snippet()
 {
+  $options = get_option('intercom');
   $snippet_settings = new SnippetSettings(
-    array("app_id" => WordpressEscaper::escJS(get_option('intercom')['app_id'])),
-    WordpressEscaper::escJS(get_option('intercom')['secret']),
+    array("app_id" => WordpressEscaper::escJS($options['app_id'])),
+    WordpressEscaper::escJS($options['secret']),
     wp_get_current_user()
   );
   $snippet = new Snippet($snippet_settings);
@@ -343,7 +349,8 @@ function render_options_page()
   {
     wp_die('You do not have sufficient permissions to access Intercom settings');
   }
-  $settings_page = new SettingsPage(array("app_id" => get_option('intercom')['app_id'], "secret" => get_option('intercom')['secret']));
+  $options = get_option('intercom');
+  $settings_page = new SettingsPage(array("app_id" => $options['app_id'], "secret" => $options['secret']));
   echo $settings_page->htmlUnclosed();
   wp_nonce_field('intercom-update');
   echo $settings_page->htmlClosed();
