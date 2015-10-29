@@ -3,7 +3,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
 {
   public function testValidator()
   {
-    // Emulate the wordpress wp_kses function
+    // Emulate the WordPress wp_kses function
     $wp_kses = function($x) {
       return str_replace("<script>", "", $x);
     };

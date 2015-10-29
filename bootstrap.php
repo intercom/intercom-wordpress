@@ -2,7 +2,7 @@
 /*
 Plugin Name: Intercom
 Plugin URI: https://wordpress.org/plugins/intercom
-Description: Official <a href="https://www.intercom.io">Intercom</a> support for Wordpress.
+Description: Official <a href="https://www.intercom.io">Intercom</a> support for WordPress.
 Author: Bob Long
 Author URI: https://www.intercom.io
 Version: 2.2.2
@@ -81,8 +81,8 @@ END;
   public function htmlUnclosed()
   {
     $settings = $this->getSettings();
-    $app_id = WordpressEscaper::escAttr($settings['app_id']);
-    $secret = WordpressEscaper::escAttr($settings['secret']);
+    $app_id = WordPressEscaper::escAttr($settings['app_id']);
+    $secret = WordPressEscaper::escAttr($settings['secret']);
 
     if (empty($secret)) {
       $secret_row_style = 'display: none;';
@@ -98,7 +98,7 @@ END;
     }
 
     if ($_GET['appId']) {
-      $app_id = WordpressEscaper::escAttr($_GET['appId']);
+      $app_id = WordPressEscaper::escAttr($_GET['appId']);
       $dismissable_message = $this->dismissibleMessage('We’ve copied your new Intercom app ID below. Click to save changes and then close this window to finish signing up for Intercom.');
     }
 
@@ -223,7 +223,7 @@ class SnippetSettings
   private function mergeConstants($settings) {
     foreach($this->constants as $key => $value) {
       if (defined($key)) {
-        $const_val = WordpressEscaper::escJS(constant($key));
+        $const_val = WordPressEscaper::escJS(constant($key));
         $settings = array_merge($settings, array($value => $const_val));
       }
     }
@@ -239,7 +239,7 @@ class SnippetSettings
   }
 }
 
-class WordpressEscaper
+class WordPressEscaper
 {
   public static function escAttr($value)
   {
@@ -279,7 +279,7 @@ class IntercomUser
     }
     if (!empty($this->wordpress_user->user_email))
     {
-      $this->settings["email"] = WordpressEscaper::escJS($this->wordpress_user->user_email);
+      $this->settings["email"] = WordPressEscaper::escJS($this->wordpress_user->user_email);
     }
     return $this->settings;
   }
@@ -324,8 +324,8 @@ function add_intercom_snippet()
 {
   $options = get_option('intercom');
   $snippet_settings = new SnippetSettings(
-    array("app_id" => WordpressEscaper::escJS($options['app_id'])),
-    WordpressEscaper::escJS($options['secret']),
+    array("app_id" => WordPressEscaper::escJS($options['app_id'])),
+    WordPressEscaper::escJS($options['secret']),
     wp_get_current_user()
   );
   $snippet = new Snippet($snippet_settings);
