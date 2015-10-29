@@ -212,7 +212,7 @@ class SnippetSettings
 
   private function getRawData()
   {
-    $user = new User($this->wordpress_user, $this->raw_data);
+    $user = new IntercomUser($this->wordpress_user, $this->raw_data);
     $settings = $user->buildSettings();
     $secureModeCalculator = new SecureModeCalculator($settings, $this->secret);
     $result = array_merge($settings, $secureModeCalculator->secureModeComponent());
@@ -260,7 +260,7 @@ class WordpressEscaper
   }
 }
 
-class User
+class IntercomUser
 {
   private $wordpress_user = NULL;
   private $settings = array();
