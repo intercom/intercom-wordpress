@@ -1,9 +1,9 @@
 <?php
-class FakeWordpressUser
+class FakeWordPressUser
 {
   public $user_email = "foo@bar.com";
 }
-class FakeWordpressUserNoEmail
+class FakeWordPressUserNoEmail
 {
   public $user_email = NULL;
 }
@@ -13,7 +13,7 @@ class UserTest extends PHPUnit_Framework_TestCase
   public function testEmail()
   {
     $settings = array();
-    $user = new IntercomUser(new FakeWordpressUser(), $settings);
+    $user = new IntercomUser(new FakeWordPressUser(), $settings);
     $built_settings = $user->buildSettings();
     $this->assertEquals("foo@bar.com", $built_settings["email"]);
   }
@@ -27,7 +27,7 @@ class UserTest extends PHPUnit_Framework_TestCase
   public function testNoUserEmail()
   {
     $settings = array();
-    $user = new IntercomUser(new FakeWordpressUserNoEmail(), $settings);
+    $user = new IntercomUser(new FakeWordPressUserNoEmail(), $settings);
     $built_settings = $user->buildSettings();
     $this->assertEquals(false, array_key_exists('email', $built_settings));
   }

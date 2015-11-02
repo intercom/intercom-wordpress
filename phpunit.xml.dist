@@ -2,7 +2,7 @@
 
 <phpunit bootstrap="./bootstrap.php">
     <testsuites>
-        <testsuite name="Intercom Wordpress Testsuite">
+        <testsuite name="Intercom WordPress Testsuite">
             <directory>./test</directory>
         </testsuite>
     </testsuites>

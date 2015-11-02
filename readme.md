@@ -1,10 +1,10 @@
-# Intercom / Wordpress
+# Intercom / WordPress
 
 [![Build Status](https://travis-ci.org/intercom/intercom-wordpress.svg?branch=master)](https://travis-ci.org/intercom/intercom-wordpress)
 
 # Beta
 
-This plugin for Wordpress is in active development.
+This plugin for WordPress is in active development.
 
 # Local Testing
 
@@ -26,7 +26,7 @@ Once filled out, the Intercom widget will automatically appear on your site.
 
 If a `$current_user` is present, we use their email as an identifier in the widget.
 
-Otherwise the widget operates in [Acquire mode](https://www.intercom.io/live-chat) (if available). This allows you to talk with anonymous visitors on your Wordpress site.
+Otherwise the widget operates in [Acquire mode](https://www.intercom.io/live-chat) (if available). This allows you to talk with anonymous visitors on your WordPress site.
 
 # Contributing
 
