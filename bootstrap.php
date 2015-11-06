@@ -246,7 +246,9 @@ class WordPressEscaper
     if (function_exists('esc_attr')) {
       return esc_attr($value);
     } else {
-      return $value;
+      if (getenv('INTERCOM_PLUGIN_TEST') == '1') {
+        return $value;
+      }
     }
   }
 
@@ -255,7 +257,9 @@ class WordPressEscaper
     if (function_exists('esc_js')) {
       return esc_js($value);
     } else {
-      return $value;
+      if (getenv('INTERCOM_PLUGIN_TEST') == '1') {
+        return $value;
+      }
     }
   }
 }
@@ -280,6 +284,10 @@ class IntercomUser
     if (!empty($this->wordpress_user->user_email))
     {
       $this->settings["email"] = WordPressEscaper::escJS($this->wordpress_user->user_email);
+    }
+    if (!empty($this->wordpress_user->display_name))
+    {
+      $this->settings["name"] = WordPressEscaper::escJS($this->wordpress_user->display_name);
     }
     return $this->settings;
   }
@@ -312,7 +320,7 @@ class Validator
   }
 }
 
-if (getenv('TEST') != '1') {
+if (getenv('INTERCOM_PLUGIN_TEST') != '1') {
   if (!defined('ABSPATH')) exit;
 }
 
@@ -362,7 +370,7 @@ function settings() {
   }
 }
 
-if (getenv('TEST') != '1') {
+if (getenv('INTERCOM_PLUGIN_TEST') != '1') {
   add_action('wp_footer', 'add_intercom_snippet');
   add_action('admin_menu', 'add_settings_page');
   add_action('network_admin_menu', 'add_settings_page');

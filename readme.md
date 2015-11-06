@@ -11,7 +11,7 @@ This plugin for WordPress is in active development.
 Running tests requires [phpunit](https://phpunit.de/).
 
 ```php
-TEST=1 phpunit
+INTERCOM_PLUGIN_TEST=1 phpunit
 ```
 
 # Usage
