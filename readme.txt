@@ -9,6 +9,8 @@ Official Intercom support for WordPress
 
 == Description ==
 
+Requires PHP 5.3 or higher.
+
 With the Intercom plugin for WordPress, you can chat to both logged-in and anonymous users (using [Acquire](https://www.intercom.io/live-chat)).
 
 Installing this plugin provides a new Intercom settings page, which allows you to configure your app id and secure mode secret. Once filled out, the Intercom widget will automatically appear.

@@ -2,9 +2,9 @@
 
 [![Build Status](https://travis-ci.org/intercom/intercom-wordpress.svg?branch=master)](https://travis-ci.org/intercom/intercom-wordpress)
 
-# Beta
+# Compatibility
 
-This plugin for WordPress is in active development.
+Requires PHP 5.3 or higher.
 
 # Local Testing
 
