@@ -328,7 +328,7 @@ function add_intercom_snippet()
 {
   $options = get_option('intercom');
   $snippet_settings = new SnippetSettings(
-    array("app_id" => WordPressEscaper::escJS($options['app_id'])),
+    apply_filters('intercom_snippet_rawdata', array("app_id" => WordPressEscaper::escJS($options['app_id']))),
     WordPressEscaper::escJS($options['secret']),
     wp_get_current_user()
   );
