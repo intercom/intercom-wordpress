@@ -93,11 +93,11 @@ END;
     }
 
     $dismissable_message = '';
-    if ($_GET['saved']) {
+    if (isset($_GET['saved'])) {
       $dismissable_message = $this->dismissibleMessage('App ID saved.');
     }
 
-    if ($_GET['appId']) {
+    if (isset($_GET['appId'])) {
       $app_id = WordPressEscaper::escAttr($_GET['appId']);
       $dismissable_message = $this->dismissibleMessage('We’ve copied your new Intercom app ID below. Click to save changes and then close this window to finish signing up for Intercom.');
     }
