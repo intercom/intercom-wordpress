@@ -328,7 +328,7 @@ function add_intercom_snippet()
 {
   $options = get_option('intercom');
   $snippet_settings = new SnippetSettings(
-    array("app_id" => WordPressEscaper::escJS($options['app_id'])),
+      (array) apply_filters('intercom_snippet_rawdata', array("app_id" => WordPressEscaper::escJS($options['app_id']))),
     WordPressEscaper::escJS($options['secret']),
     wp_get_current_user()
   );
@@ -375,4 +375,5 @@ if (getenv('INTERCOM_PLUGIN_TEST') != '1') {
   add_action('admin_menu', 'add_settings_page');
   add_action('network_admin_menu', 'add_settings_page');
   add_action('admin_init', 'settings');
+  do_action( 'intercom_initialization');
 }
