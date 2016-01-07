@@ -375,4 +375,5 @@ if (getenv('INTERCOM_PLUGIN_TEST') != '1') {
   add_action('admin_menu', 'add_settings_page');
   add_action('network_admin_menu', 'add_settings_page');
   add_action('admin_init', 'settings');
+  do_action( 'intercom_initialization');
 }
