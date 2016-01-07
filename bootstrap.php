@@ -121,7 +121,7 @@ END;
     </table>
     <p class="submit">
       <input name="intercom-submit" type="submit" value="Save Changes" class="button button-primary">
-      <a id="intercom_secret_key_show_link" style="$secret_link_style margin-left: 20px" href="javascript: jQuery('#intercom_secret_key_row').show(); jQuery('#intercom_secret_key_show_link').hide(); jQuery('#intercom_secret').focus();">Add your Intercom secret key (optional)</a>
+      <a id="intercom_secret_key_show_link" style="$secret_link_style margin-left: 20px" href="javascript: jQuery('#intercom_secret_key_row').show(); jQuery('#intercom_secret_key_show_link').hide(); jQuery('#intercom_secret').focus(); void(0);">Add your Intercom secret key (optional)</a>
     </p>
 END;
   }
