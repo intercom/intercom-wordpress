@@ -336,18 +336,18 @@ function add_intercom_snippet()
   echo $snippet->html();
 }
 
-function add_settings_page()
+function add_intercom_settings_page()
 {
   add_options_page(
     'Intercom Settings',
     'Intercom',
     'manage_options',
     'intercom',
-    'render_options_page'
+    'render_intercom_options_page'
   );
 }
 
-function render_options_page()
+function render_intercom_options_page()
 {
   if (!current_user_can('manage_options'))
   {
@@ -360,7 +360,7 @@ function render_options_page()
   echo $settings_page->htmlClosed();
 }
 
-function settings() {
+function intercom_settings() {
   register_setting('intercom', 'intercom');
   if (isset($_POST['_wpnonce']) and wp_verify_nonce($_POST[ '_wpnonce'], 'intercom-update')
       and isset($_POST[ 'intercom-submit' ] ) and current_user_can('manage_options')) {
@@ -372,7 +372,7 @@ function settings() {
 
 if (getenv('INTERCOM_PLUGIN_TEST') != '1') {
   add_action('wp_footer', 'add_intercom_snippet');
-  add_action('admin_menu', 'add_settings_page');
-  add_action('network_admin_menu', 'add_settings_page');
-  add_action('admin_init', 'settings');
+  add_action('admin_menu', 'add_intercom_settings_page');
+  add_action('network_admin_menu', 'add_intercom_settings_page');
+  add_action('admin_init', 'intercom_settings');
 }
