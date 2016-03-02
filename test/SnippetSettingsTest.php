@@ -13,7 +13,7 @@ class SnippetSettingsTest extends PHPUnit_Framework_TestCase
   }
   public function testJSONRenderingWithSecureMode()
   {
-    $snippet_settings = new SnippetSettings(array("app_id" => "bar"), "foo", new FakeWordPressUserForSnippetTest());
+    $snippet_settings = new SnippetSettings(array("app_id" => "bar"), "foo", true, new FakeWordPressUserForSnippetTest());
     $this->assertEquals("{\"app_id\":\"bar\",\"email\":\"foo@bar.com\",\"user_hash\":\"a95b0a1ab461c0721d91fbe32a5f5f2a27ac0bfa4bfbcfced168173fa80d4e14\"}", $snippet_settings->json());
   }
 
