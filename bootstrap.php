@@ -455,10 +455,19 @@ function intercom_settings() {
     update_option("intercom", $options);
   }
 }
+// Enable Secure Mode for customers who already copy/pasted their secret_key before the Oauth2 release.
+function patch_oauth() {
+  $options = get_option('intercom');
+  if ($options["secret"] && !isset($options["secure_mode"])) {
+    $options["secure_mode"] = true;
+    update_option("intercom", $options);
+  }
+}
 
 if (getenv('INTERCOM_PLUGIN_TEST') != '1') {
   add_action('wp_footer', 'add_intercom_snippet');
   add_action('admin_menu', 'add_intercom_settings_page');
   add_action('network_admin_menu', 'add_intercom_settings_page');
+  add_action('admin_init', 'patch_oauth');
   add_action('admin_init', 'intercom_settings');
 }

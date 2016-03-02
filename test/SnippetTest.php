@@ -3,7 +3,7 @@ class SnippetTest extends PHPUnit_Framework_TestCase
 {
   public function testGeneratedHtml()
   {
-    $settings = new SnippetSettings(array("app_id" => "foo", "name" => "Nikola Tesla"), NULL, NULL, array());
+    $settings = new SnippetSettings(array("app_id" => "foo", "name" => "Nikola Tesla"), NULL, NULL, NULL, array());
     $snippet = new Snippet($settings);
 
     $expectedHtml = <<<HTML
