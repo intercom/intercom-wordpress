@@ -248,9 +248,26 @@ class Snippet
   }
   public function html()
   {
-    return $this->source();
+    return $this->shutdown_on_logout() . $this->source();
   }
 
+
+    private function shutdown_on_logout()
+    {
+      return <<<HTML
+<script data-cfasync="false">
+  var logout_link = document.querySelectorAll('a[href*="wp-login.php?action=logout"]');
+  if (logout_link) {
+    for(var i=0; i < logout_link.length; i++) {
+      logout_link[i].addEventListener( "click", function() {
+        Intercom('shutdown');
+      });
+    }
+  }
+</script>
+
+HTML;
+    }
   private function source()
   {
     $snippet_json = $this->snippet_settings->json();
