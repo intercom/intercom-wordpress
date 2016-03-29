@@ -5,7 +5,7 @@ Plugin URI: https://wordpress.org/plugins/intercom
 Description: Official <a href="https://www.intercom.io">Intercom</a> support for WordPress.
 Author: Bob Long
 Author URI: https://www.intercom.io
-Version: 2.5.0
+Version: 2.5.2
  */
 
 class SecureModeCalculator
@@ -69,10 +69,12 @@ class SecureModeCalculator
 class SettingsPage
 {
   private $settings = array();
+  private $styles = array();
 
   public function __construct($settings)
   {
     $this->settings = $settings;
+    $this->styles = $this->setStyles($settings);
   }
 
   public function dismissibleMessage($text)
@@ -92,24 +94,22 @@ END;
   public function htmlUnclosed()
   {
     $settings = $this->getSettings();
+    $styles = $this->getStyles();
     $app_id = WordPressEscaper::escAttr($settings['app_id']);
     $secret = WordPressEscaper::escAttr($settings['secret']);
     $secure_mode = WordPressEscaper::escAttr($settings['secure_mode']);
     $auth_url = $this->getAuthUrl();
-
-    if($secure_mode) {
-      $secure_mode_state = "checked disabled";
-    }
-    if (empty($app_id) || empty($secret)) {
-      $app_id_row_style = 'display: none;';
-      $app_id_link_style = '';
-    } else {
-      $app_id_row_style = '';
-      $app_id_link_style = 'display: none;';
-    }
     $dismissable_message = '';
+    if ($_GET['appId']) {
+      // Copying app_id from setup guide
+      $app_id = WordPressEscaper::escAttr($_GET['appId']);
+      $dismissable_message = $this->dismissibleMessage("We've copied your new Intercom app id below. click to save changes and then close this window to finish signing up for Intercom.");
+    }
     if ($_GET['saved']) {
-      $dismissable_message = $this->dismissibleMessage('Successfully authenticated');
+      $dismissable_message = $this->dismissibleMessage("Your app id has been successfully saved. You can now close this window to finish signing up for Intercom.");
+    }
+    if ($_GET['authenticated']) {
+      $dismissable_message = $this->dismissibleMessage('You successfully authenticated with Intercom');
     }
     if ($_GET['enable_secure_mode']) {
       $dismissable_message = $this->dismissibleMessage('Secure Mode successfully enabled');
@@ -133,8 +133,7 @@ END;
           <div class="cta">
 
             <div class="sp__2--lg sp__2--xlg"></div>
-
-            <div id="oauth_content"  style="$app_id_link_style">
+            <div id="oauth_content" style="$styles[app_id_link_style]">
               <div class="t__h1 c__red">Get started with Intercom</div>
 
               <div class="cta__desc">
@@ -149,34 +148,41 @@ END;
               $onboarding_markup
             </div>
 
-            <div id="app_id_and_secret_content" style="$app_id_row_style">
-              <div class="t__h1 c__red">Intercom has been installed</div>
+            <div class="t__h1 c__red" style="$styles[app_id_copy_title]">Intercom setup</div>
+            <div class="t__h1 c__red" style="$styles[app_id_saved_title]">Intercom app ID saved</div>
+            <div id="app_id_and_secret_content" style="$styles[app_id_row_style]">
+              <div class="t__h1 c__red" style="$styles[app_id_copy_hidden]">Intercom has been installed</div>
 
               <div class="cta__desc">
-                Intercom is now set up and ready to go. You can now chat with your existing and potential new customers, send them targeted messages, and get feedback.
-                <br/>
-                <br/>
-                <a href="https://app.intercom.io/a/apps/$app_id" target="_blank">Click here to access your Intercom Team Inbox.</a>
-                <br/>
-                <br/>
-                Need help? <a href="https://docs.intercom.io/for-converting-visitors-to-users" target="_blank">Visit our documentation</a> for best practices, tips, and much more.
-                <br/>
-                <br/>
+                <div style="$styles[app_id_copy_hidden]">
+                  Intercom is now set up and ready to go. You can now chat with your existing and potential new customers, send them targeted messages, and get feedback.
+                  <br/>
+                  <br/>
+                  <a href="https://app.intercom.io/a/apps/$app_id" target="_blank">Click here to access your Intercom Team Inbox.</a>
+                  <br/>
+                  <br/>
+                  Need help? <a href="https://docs.intercom.io/for-converting-visitors-to-users" target="_blank">Visit our documentation</a> for best practices, tips, and much more.
+                  <br/>
+                  <br/>
+                </div>
 
                 <div>
-                  <div style="font-size:0.87em">
+                  <div style="font-size:0.87em;$styles[app_id_copy_hidden]">
                   Learn more about our products : <a href="https://www.intercom.io/live-chat"target="_blank">Acquire</a>, <a href="https://www.intercom.io/customer-engagement" target="_blank">Engage</a>, <a href="https://www.intercom.io/customer-feedback"  target="_blank">Learn</a> and <a href="https://www.intercom.io/customer-support"  target="_blank">Support</a>.
                   </div>
-                  <form method="post" action="" name="enable_secure_mode">
+                  <form method="post" action="" name="update_settings">
                     <table class="form-table" align="center" style="margin-top: 16px; width: inherit;">
                       <tbody>
                         <tr>
                           <th scope="row" style="text-align: center; vertical-align: middle;"><label for="intercom_app_id">App ID</label></th>
-                          <td><input id="intercom_app_id" disabled name="intercom[app_id]" type="text" value="$app_id" placeholder="App ID"></td>
+                          <td>
+                            <input id="intercom_app_id" $styles[app_id_state] name="app_id" type="text" value="$app_id" class="$styles[app_id_class]">
+                            <button type="submit" class="btn btn__primary cta__submit" style="$styles[button_submit_style]">Save</button>
+                          </td>
                         </tr>
-                        <tr id="intercom_secure_mode">
+                        <tr style="$styles[app_secret_row_style];$styles[app_id_copy_hidden]" id="intercom_secure_mode">
                           <th scope="row" style="text-align: center; vertical-align: middle;"><label for="intercom_secure">Secure Mode</label></th>
-                          <td><input id="intercom-secure-mode" name="enable_secure_mode" type="checkbox" $secure_mode_state></td>
+                          <td><input id="intercom-secure-mode" name="enable_secure_mode" type="checkbox" $styles[secure_mode_state]></td>
                         </tr>
                       </tbody>
                     </table>
@@ -186,15 +192,27 @@ END;
 
   public function htmlClosed()
   {
+    $settings = $this->getSettings();
+    $styles = $this->getStyles();
     $auth_url = $this->getAuthUrl();
+    $secret = WordPressEscaper::escAttr($settings['secret']);
+    $app_id = WordPressEscaper::escAttr($settings['app_id']);
+    if (empty($secret) && !empty($app_id)) {
+      $auth_url_secure = $auth_url.'&enable_secure_mode=1';
+    }
     return <<<END
                   </form>
-                  <p style="font-size:0.86em">Secure mode allows you to make sure that conversations between you and your users are kept private.<br/>
-                    Once you enabled secure mode you cannot disable it.<br/>
-                    <a href="https://docs.intercom.io/configuring-intercom/enable-secure-mode" target="_blank">Learn more about Secure Mode</a>
-                  </p>
-                  <br/>
-                  <div style="font-size:0.8em">If the intercom application assiocated with your store is incorrect, please <a href="$auth_url">click here</a> to reconnect with Intercom, to choose a new application.</div>
+                  <div style="$styles[app_id_copy_hidden]">
+                    <div style="$styles[app_secret_link_style]">
+                      <a href="$auth_url_secure">Authenticate with your intercom application to enable secure mode</a>
+                    </div>
+                    <p style="font-size:0.86em">Secure mode allows you to make sure that conversations between you and your users are kept private.<br/>
+                      Once you enabled secure mode you cannot disable it.<br/>
+                      <a href="https://docs.intercom.io/configuring-intercom/enable-secure-mode" target="_blank">Learn more about Secure Mode</a>
+                    </p>
+                    <br/>
+                    <div style="font-size:0.8em">If the intercom application assiocated with your store is incorrect, please <a href="$auth_url">click here</a> to reconnect with Intercom, to choose a new application.</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -209,7 +227,7 @@ END;
         if(confirm('Are you sure you want to enable secure mode for Intercom ?'))  {
           $('#intercom-secure-mode').prop('value', true);
           $('#intercom-secure-mode').prop('checked', true);
-          $('form[name="enable_secure_mode"]').submit();
+          $('form[name="update_settings"]').submit();
         }
       });
     </script>
@@ -221,9 +239,70 @@ END;
     return $this->htmlUnclosed() . $this->htmlClosed();
   }
 
+  public function setStyles($settings) {
+    $styles = array();
+    $app_id = WordPressEscaper::escAttr($settings['app_id']);
+    $secret = WordPressEscaper::escAttr($settings['secret']);
+    $secure_mode = WordPressEscaper::escAttr($settings['secure_mode']);
+
+    // Use Case : secure mode enabled : checkbox checked and disabled (can not reverse secure mode)
+    if($secure_mode) {
+      $styles['secure_mode_state'] = 'checked disabled';
+    }
+
+    // Use Case : app_id here but secure mode disabled
+    if (empty($secret) && !empty($app_id)) {
+      $styles['app_secret_row_style'] = 'display: none;';
+      $styles['app_secret_link_style'] = '';
+    } else {
+      $styles['app_secret_row_style'] = '';
+      $styles['app_secret_link_style'] = 'display: none;';
+    }
+
+    // Copying appId from Intercom Setup Guide for validation
+    if (isset($_GET['appId'])) {
+        $app_id = WordPressEscaper::escAttr($_GET['appId']);
+        $styles['app_id_state'] = 'readonly';
+        $styles['app_id_class'] = "cta__email";
+        $styles['button_submit_style'] = '';
+        $styles['app_id_copy_hidden'] = 'display: none;';
+        $styles['app_id_copy_title'] = '';
+        $styles['secure_mode_state'] = 'disabled'; # Prevent from sending POST data about secure_mode when using app_id form
+    } else {
+      $styles['app_id_class'] = "";
+      $styles['button_submit_style'] = 'display: none;';
+      $styles['app_id_copy_title'] = 'display: none;';
+      $styles['app_id_state'] = 'disabled'; # Prevent from sending POST data about app_id when using secure_mode form
+      $styles['app_id_copy_hidden'] = '';
+    }
+
+    //Use Case App_id successfully copied
+    if (isset($_GET['saved'])) {
+      $styles['app_id_copy_hidden'] = 'display: none;';
+      $styles['app_id_saved_title'] = '';
+    } else {
+      $styles['app_id_saved_title'] = 'display: none;';
+    }
+
+    // Display 'connect with intercom' button if no app_id provided (copied from setup guide or from Oauth)
+    if (empty($app_id)) {
+      $styles['app_id_row_style'] = 'display: none;';
+      $styles['app_id_link_style'] = '';
+    } else {
+      $styles['app_id_row_style'] = '';
+      $styles['app_id_link_style'] = 'display: none;';
+    }
+    return $styles;
+  }
+
   private function getSettings()
   {
     return $this->settings;
+  }
+
+  private function getStyles()
+  {
+    return $this->styles;
   }
 
   private function getOnboardingLinkIfNoAppId()
@@ -463,13 +542,22 @@ function intercom_settings() {
   register_setting('intercom', 'intercom');
   if (isset($_GET['state']) && wp_verify_nonce($_GET[ 'state'], 'intercom-oauth') && current_user_can('manage_options') && isset($_GET['app_id']) && isset($_GET['secret']) ) {
     $validator = new Validator($_GET, function($x) { return wp_kses(trim($x), array()); });
-    update_option("intercom", array("app_id" => $validator->validAppId(), "secret" => $validator->validSecret(), "secure_mode" => false));
-    wp_safe_redirect(admin_url('options-general.php?page=intercom&saved=1'));
+    $secure_mode = isset($_GET['enable_secure_mode']);
+    update_option("intercom", array("app_id" => $validator->validAppId(), "secret" => $validator->validSecret(), "secure_mode" => $secure_mode));
+    $redirect_to = $secure_mode ? 'options-general.php?page=intercom&enable_secure_mode=1' : 'options-general.php?page=intercom&authenticated=1';
+    wp_safe_redirect(admin_url($redirect_to));
   }
   if ( current_user_can('manage_options') &&  wp_verify_nonce($_POST[ '_wpnonce'],'intercom-update') && isset($_POST['enable_secure_mode'])) {
     $options = get_option('intercom');
     $options["secure_mode"] = true;
     update_option("intercom", $options);
+    wp_safe_redirect(admin_url('options-general.php?page=intercom&enable_secure_mode=1'));
+  }
+  if (current_user_can('manage_options') &&  isset($_POST['app_id']) && wp_verify_nonce($_POST[ '_wpnonce'],'intercom-update')) {
+      $options = [];
+      $options["app_id"] = WordPressEscaper::escAttr($_POST['app_id']);
+      update_option("intercom", $options);
+      wp_safe_redirect(admin_url('options-general.php?page=intercom&saved=1'));
   }
 }
 // Enable Secure Mode for customers who already copy/pasted their secret_key before the Oauth2 release.

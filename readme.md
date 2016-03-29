@@ -14,6 +14,10 @@ Running tests requires [phpunit](https://phpunit.de/).
 INTERCOM_PLUGIN_TEST=1 phpunit
 ```
 
+# Test the new version of the plugin with Intercom's Wordpress signup flow
+
+It is mandatory that you fully test the [intercom wordpress setup guide](https://app.intercom.io/a/start/wordpress) before you release a new update of the plugin.
+
 # Usage
 
 Installing this plugin provides a new Intercom settings page.
