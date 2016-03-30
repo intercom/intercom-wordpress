@@ -554,7 +554,7 @@ function intercom_settings() {
     wp_safe_redirect(admin_url('options-general.php?page=intercom&enable_secure_mode=1'));
   }
   if (current_user_can('manage_options') &&  isset($_POST['app_id']) && wp_verify_nonce($_POST[ '_wpnonce'],'intercom-update')) {
-      $options = [];
+      $options = array();
       $options["app_id"] = WordPressEscaper::escAttr($_POST['app_id']);
       update_option("intercom", $options);
       wp_safe_redirect(admin_url('options-general.php?page=intercom&saved=1'));
