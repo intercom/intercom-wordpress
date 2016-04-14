@@ -25,11 +25,11 @@ Full installation and usage instructions are available on the [Intercom website]
 
 With the Intercom plugin for WordPress, you can chat to both logged-in and anonymous users (using [Acquire](https://www.intercom.io/live-chat)).
 
-This plugin injects a Javascript snippet on your website frontend containing dynamic user data. Some caching solutions will cache entire pages and should not be used with this plugin. Doing so may cause conversations to be delivered to the wrong user.
+Installing this plugin provides a new Intercom settings page, which allows you to configure your app id and secure mode secret. Once filled out, the Intercom widget will automatically appear.
 
 If `current_user` is present, their email will be used as an identifier in the widget. Otherwise, it falls back to anonymous chat using [Acquire](https://www.intercom.io/live-chat).
 
-NB: This plugin injects a Javascript snippet on your website frontend containing dynamic user data. Some caching solutions will cache entire pages and should not be used with this plugin.
+This plugin injects a Javascript snippet on your website frontend containing dynamic user data. Some caching solutions will cache entire pages and should not be used with this plugin. Doing so may cause conversations to be delivered to the wrong user.
 
 [View more details](https://github.com/intercom/intercom-wordpress).
 
