@@ -28,6 +28,8 @@ Once authenticated, if you have enabled [Acquire](https://www.intercom.io/live-c
 
 <img src="https://raw.githubusercontent.com/intercom/intercom-wordpress/master/screenshots/settings_auth.png"/>
 
+NB: This plugin injects a Javascript snippet on your website frontend containing dynamic user data. Some caching solutions will cache entire pages and should not be used with this plugin. Doing so may cause conversations to be delivered to the wrong user.
+
 # Users
 
 If a `$current_user` is present, we use their email as an identifier in the widget.
