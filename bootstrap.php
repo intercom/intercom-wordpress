@@ -100,18 +100,18 @@ END;
     $secure_mode = WordPressEscaper::escAttr($settings['secure_mode']);
     $auth_url = $this->getAuthUrl();
     $dismissable_message = '';
-    if ($_GET['appId']) {
+    if (isset($_GET['appId'])) {
       // Copying app_id from setup guide
       $app_id = WordPressEscaper::escAttr($_GET['appId']);
       $dismissable_message = $this->dismissibleMessage("We've copied your new Intercom app id below. click to save changes and then close this window to finish signing up for Intercom.");
     }
-    if ($_GET['saved']) {
+    if (isset($_GET['saved'])) {
       $dismissable_message = $this->dismissibleMessage("Your app id has been successfully saved. You can now close this window to finish signing up for Intercom.");
     }
-    if ($_GET['authenticated']) {
+    if (isset($_GET['authenticated'])) {
       $dismissable_message = $this->dismissibleMessage('You successfully authenticated with Intercom');
     }
-    if ($_GET['enable_secure_mode']) {
+    if (isset($_GET['enable_secure_mode'])) {
       $dismissable_message = $this->dismissibleMessage('Secure Mode successfully enabled');
     }
     $onboarding_markup = $this->getOnboardingLinkIfNoAppId();
@@ -197,6 +197,7 @@ END;
     $auth_url = $this->getAuthUrl();
     $secret = WordPressEscaper::escAttr($settings['secret']);
     $app_id = WordPressEscaper::escAttr($settings['app_id']);
+    $auth_url_secure = "";
     if (empty($secret) && !empty($app_id)) {
       $auth_url_secure = $auth_url.'&enable_secure_mode=1';
     }
@@ -547,13 +548,13 @@ function intercom_settings() {
     $redirect_to = $secure_mode ? 'options-general.php?page=intercom&enable_secure_mode=1' : 'options-general.php?page=intercom&authenticated=1';
     wp_safe_redirect(admin_url($redirect_to));
   }
-  if ( current_user_can('manage_options') &&  wp_verify_nonce($_POST[ '_wpnonce'],'intercom-update') && isset($_POST['enable_secure_mode'])) {
+  if ( current_user_can('manage_options') && isset($_POST[ '_wpnonce']) && wp_verify_nonce($_POST[ '_wpnonce'],'intercom-update') && isset($_POST['enable_secure_mode'])) {
     $options = get_option('intercom');
     $options["secure_mode"] = true;
     update_option("intercom", $options);
     wp_safe_redirect(admin_url('options-general.php?page=intercom&enable_secure_mode=1'));
   }
-  if (current_user_can('manage_options') &&  isset($_POST['app_id']) && wp_verify_nonce($_POST[ '_wpnonce'],'intercom-update')) {
+  if (current_user_can('manage_options') && isset($_POST['app_id']) && isset($_POST[ '_wpnonce']) && wp_verify_nonce($_POST[ '_wpnonce'],'intercom-update')) {
       $options = array();
       $options["app_id"] = WordPressEscaper::escAttr($_POST['app_id']);
       update_option("intercom", $options);
