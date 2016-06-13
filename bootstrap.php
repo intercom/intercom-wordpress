@@ -212,7 +212,7 @@ END;
                       <a href="https://docs.intercom.io/configuring-intercom/enable-secure-mode" target="_blank">Learn more about Secure Mode</a>
                     </p>
                     <br/>
-                    <div style="font-size:0.8em">If the intercom application assiocated with your store is incorrect, please <a href="$auth_url">click here</a> to reconnect with Intercom, to choose a new application.</div>
+                    <div style="font-size:0.8em">If the Intercom application associated with your store is incorrect, please <a href="$auth_url">click here</a> to reconnect with Intercom, to choose a new application.</div>
                   </div>
                 </div>
               </div>
