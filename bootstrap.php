@@ -158,17 +158,17 @@ END;
                   Intercom is now set up and ready to go. You can now chat with your existing and potential new customers, send them targeted messages, and get feedback.
                   <br/>
                   <br/>
-                  <a href="https://app.intercom.io/a/apps/$app_id" target="_blank">Click here to access your Intercom Team Inbox.</a>
+                  <a class="c__blue" href="https://app.intercom.io/a/apps/$app_id" target="_blank">Click here to access your Intercom Team Inbox.</a>
                   <br/>
                   <br/>
-                  Need help? <a href="https://docs.intercom.io/for-converting-visitors-to-users" target="_blank">Visit our documentation</a> for best practices, tips, and much more.
+                  Need help? <a class="c__blue" href="https://docs.intercom.io/for-converting-visitors-to-users" target="_blank">Visit our documentation</a> for best practices, tips, and much more.
                   <br/>
                   <br/>
                 </div>
 
                 <div>
                   <div style="font-size:0.87em;$styles[app_id_copy_hidden]">
-                  Learn more about our products : <a href="https://www.intercom.io/live-chat"target="_blank">Acquire</a>, <a href="https://www.intercom.io/customer-engagement" target="_blank">Engage</a>, <a href="https://www.intercom.io/customer-feedback"  target="_blank">Learn</a> and <a href="https://www.intercom.io/customer-support"  target="_blank">Support</a>.
+                  Learn more about our products : <a class="c__blue" href="https://www.intercom.io/live-chat"target="_blank">Acquire</a>, <a class="c__blue" href="https://www.intercom.io/customer-engagement" target="_blank">Engage</a>, <a class="c__blue" href="https://www.intercom.io/customer-feedback" target="_blank">Learn</a> and <a class="c__blue" href="https://www.intercom.io/customer-support"  target="_blank">Support</a>.
                   </div>
                   <form method="post" action="" name="update_settings">
                     <table class="form-table" align="center" style="margin-top: 16px; width: inherit;">
@@ -205,14 +205,14 @@ END;
                   </form>
                   <div style="$styles[app_id_copy_hidden]">
                     <div style="$styles[app_secret_link_style]">
-                      <a href="$auth_url_secure">Authenticate with your intercom application to enable secure mode</a>
+                      <a class="c__blue" href="$auth_url_secure">Authenticate with your intercom application to enable secure mode</a>
                     </div>
                     <p style="font-size:0.86em">Secure mode allows you to make sure that conversations between you and your users are kept private.<br/>
                       Once you enabled secure mode you cannot disable it.<br/>
-                      <a href="https://docs.intercom.io/configuring-intercom/enable-secure-mode" target="_blank">Learn more about Secure Mode</a>
+                      <a class="c__blue" href="https://docs.intercom.io/configuring-intercom/enable-secure-mode" target="_blank">Learn more about Secure Mode</a>
                     </p>
                     <br/>
-                    <div style="font-size:0.8em">If the Intercom application associated with your store is incorrect, please <a href="$auth_url">click here</a> to reconnect with Intercom, to choose a new application.</div>
+                    <div style="font-size:0.8em">If the Intercom application associated with your store is incorrect, please <a class="c__blue" href="$auth_url">click here</a> to reconnect with Intercom, to choose a new application.</div>
                   </div>
                 </div>
               </div>
