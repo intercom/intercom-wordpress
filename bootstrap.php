@@ -383,7 +383,7 @@ class IntercomSnippetSettings
 
   public function json()
   {
-    return json_encode($this->getRawData());
+    return json_encode(apply_filters("intercom_settings", $this->getRawData()));
   }
 
   public function appId()
