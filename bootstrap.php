@@ -249,6 +249,8 @@ END;
     // Use Case : secure mode enabled : checkbox checked and disabled (can not reverse secure mode)
     if($secure_mode) {
       $styles['secure_mode_state'] = 'checked disabled';
+    } else {
+      $styles['secure_mode_state'] = '';
     }
 
     // Use Case : app_id here but secure mode disabled
