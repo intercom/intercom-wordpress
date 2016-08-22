@@ -66,7 +66,7 @@ class SecureModeCalculator
   }
 }
 
-class SettingsPage
+class IntercomSettingsPage
 {
   private $settings = array();
   private $styles = array();
@@ -533,7 +533,7 @@ function render_intercom_options_page()
     wp_die('You do not have sufficient permissions to access Intercom settings');
   }
   $options = get_option('intercom');
-  $settings_page = new SettingsPage(array("app_id" => $options['app_id'], "secret" => $options['secret'], "secure_mode" => $options['secure_mode']));
+  $settings_page = new IntercomSettingsPage(array("app_id" => $options['app_id'], "secret" => $options['secret'], "secure_mode" => $options['secure_mode']));
   echo $settings_page->htmlUnclosed();
   wp_nonce_field('intercom-update');
   echo $settings_page->htmlClosed();
