@@ -4,7 +4,7 @@
 
 # Compatibility
 
-Requires PHP 5.3 or higher.
+Requires PHP 5.6 or higher.
 
 # Local Testing
 
