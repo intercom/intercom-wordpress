@@ -13,7 +13,7 @@ Chat with visitors to your website in real-time, capture them as leads, and conv
 
 [Intercom](https://www.intercom.io/) is a fundamentally new way for internet businesses to communicate with customers, personally, at scale. It's a customer communication platform with a suite of integrated products for every team – including sales, marketing, product, and support. Our products enable targeted communication with customers on your website, inside your web and mobile apps, and by email.
 
-With this plugin, you can add the Intercom Messenger to your website in just a few clicks and start chatting to customers and visitors to your website right away ([Acquire](https://www.intercom.io/live-chat) subscription required).
+With this plugin, you can add the Intercom Messenger to your website in just a few clicks and start chatting to customers and visitors to your website right away.
 
 Your logged-in customers will be tracked in Intercom as users, and visitors who aren’t customers (or aren’t logged in) will be tracked as leads.
 
