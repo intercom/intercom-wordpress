@@ -320,7 +320,7 @@ END;
   }
 }
 
-class Snippet
+class IntercomSnippet
 {
   private $snippet_settings = "";
 
@@ -364,7 +364,7 @@ HTML;
   }
 }
 
-class SnippetSettings
+class IntercomSnippetSettings
 {
   private $raw_data = array();
   private $secret = NULL;
@@ -507,13 +507,13 @@ if (getenv('INTERCOM_PLUGIN_TEST') != '1') {
 function add_intercom_snippet()
 {
   $options = get_option('intercom');
-  $snippet_settings = new SnippetSettings(
+  $snippet_settings = new IntercomSnippetSettings(
     array("app_id" => WordPressEscaper::escJS($options['app_id'])),
     WordPressEscaper::escJS($options['secret']),
     WordPressEscaper::escJS($options['secure_mode']),
     wp_get_current_user()
   );
-  $snippet = new Snippet($snippet_settings);
+  $snippet = new IntercomSnippet($snippet_settings);
   echo $snippet->html();
 }
 
