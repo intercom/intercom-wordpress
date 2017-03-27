@@ -1,10 +1,10 @@
 <?php
-class SnippetTest extends PHPUnit_Framework_TestCase
+class IntercomSnippetTest extends PHPUnit_Framework_TestCase
 {
   public function testGeneratedHtml()
   {
-    $settings = new SnippetSettings(array("app_id" => "foo", "name" => "Nikola Tesla"), NULL, NULL, NULL, array());
-    $snippet = new Snippet($settings);
+    $settings = new IntercomSnippetSettings(array("app_id" => "foo", "name" => "Nikola Tesla"), NULL, NULL, NULL, array());
+    $snippet = new IntercomSnippet($settings);
 
     $expectedHtml = <<<HTML
 <script data-cfasync="false">
