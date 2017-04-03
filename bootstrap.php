@@ -168,7 +168,7 @@ END;
 
                 <div>
                   <div style="font-size:0.87em;$styles[app_id_copy_hidden]">
-                  Learn more about our products : <a class="c__blue" href="https://www.intercom.io/live-chat" target="_blank">Acquire</a>, <a class="c__blue" href="https://www.intercom.io/customer-engagement" target="_blank">Engage</a> and <a class="c__blue" href="https://www.intercom.io/customer-support" target="_blank">Resolve</a>.
+                  Learn more about our products : <a class="c__blue" href="https://www.intercom.io/customer-engagement" target="_blank">Engage</a> and <a class="c__blue" href="https://www.intercom.com/customer-support-software/help-desk" target="_blank">Respond</a>.
                   </div>
                   <form method="post" action="" name="update_settings">
                     <table class="form-table" align="center" style="margin-top: 16px; width: inherit;">
