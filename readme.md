@@ -24,7 +24,7 @@ Installing this plugin provides a new Intercom settings page.
 Authenticate with Intercom to retrieve your app_id and secure_mode_secret.
 <img src="https://raw.githubusercontent.com/intercom/intercom-wordpress/master/screenshots/settings_not_auth.png"/>
 
-Once authenticated, if you have enabled [Acquire](https://www.intercom.io/live-chat), the Intercom widget will automatically appear on your site.
+Once authenticated, the Intercom widget will automatically appear on your site.
 
 <img src="https://raw.githubusercontent.com/intercom/intercom-wordpress/master/screenshots/settings_auth.png"/>
 
@@ -34,7 +34,6 @@ NB: This plugin injects a Javascript snippet on your website frontend containing
 
 If a `$current_user` is present, we use their email as an identifier in the widget.
 We recommend to enable the [secure mode](https://docs.intercom.io/configuring-intercom/enable-secure-mode) in the settings page.
-Otherwise the widget operates in [Acquire mode](https://www.intercom.io/live-chat) (if available). This allows you to talk with anonymous visitors on your WordPress site.
 
 # Contributing
 
