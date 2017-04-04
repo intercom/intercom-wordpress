@@ -3,7 +3,7 @@
 Plugin Name: Intercom
 Plugin URI: https://wordpress.org/plugins/intercom
 Description: Official <a href="https://www.intercom.io">Intercom</a> support for WordPress.
-Author: Bob Long
+Author: Intercom
 Author URI: https://www.intercom.io
 Version: 2.5.10
  */
@@ -168,7 +168,7 @@ END;
 
                 <div>
                   <div style="font-size:0.87em;$styles[app_id_copy_hidden]">
-                  Learn more about our products : <a class="c__blue" href="https://www.intercom.io/live-chat" target="_blank">Acquire</a>, <a class="c__blue" href="https://www.intercom.io/customer-engagement" target="_blank">Engage</a> and <a class="c__blue" href="https://www.intercom.io/customer-support" target="_blank">Resolve/a>.
+                  Learn more about our products : <a class="c__blue" href="https://www.intercom.com/customer-engagement" target="_blank">Engage</a>, <a class="c__blue" href="https://www.intercom.com/customer-support-software/knowledge-base" target="_blank">Educate</a> and <a class="c__blue" href="https://www.intercom.com/customer-support-software/help-desk" target="_blank">Respond</a>.
                   </div>
                   <form method="post" action="" name="update_settings">
                     <table class="form-table" align="center" style="margin-top: 16px; width: inherit;">
