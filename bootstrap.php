@@ -5,7 +5,7 @@ Plugin URI: https://wordpress.org/plugins/intercom
 Description: Official <a href="https://www.intercom.io">Intercom</a> support for WordPress.
 Author: Bob Long
 Author URI: https://www.intercom.io
-Version: 2.5.9
+Version: 2.5.10
  */
 
 class SecureModeCalculator
@@ -332,24 +332,26 @@ class IntercomSnippet
   {
     return $this->shutdown_on_logout() . $this->source();
   }
-
-
-    private function shutdown_on_logout()
-    {
-      return <<<HTML
+  
+  private function shutdown_on_logout()
+  {
+    return <<<HTML
 <script data-cfasync="false">
-  var logout_link = document.querySelectorAll('a[href*="wp-login.php?action=logout"]');
-  if (logout_link) {
-    for(var i=0; i < logout_link.length; i++) {
-      logout_link[i].addEventListener( "click", function() {
-        Intercom('shutdown');
-      });
+  jQuery(document).ready(function(){
+    var logout_link = document.querySelectorAll('a[href*="wp-login.php?action=logout"]');
+    if (logout_link) {
+      for(var i=0; i < logout_link.length; i++) {
+        logout_link[i].addEventListener( "click", function() {
+          if (Intercom) Intercom('shutdown');
+        });
+      }
     }
-  }
+  });
 </script>
 
 HTML;
-    }
+  }
+
   private function source()
   {
     $snippet_json = $this->snippet_settings->json();
