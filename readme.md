@@ -21,7 +21,7 @@ It is mandatory that you fully test the [intercom wordpress setup guide](https:/
 # Usage
 
 Installing this plugin provides a new Intercom settings page.
-Authenticate with Intercom to retrieve your app_id and secure_mode_secret.
+Authenticate with Intercom to retrieve your app_id and Identity Verification secret.
 <img src="https://raw.githubusercontent.com/intercom/intercom-wordpress/master/screenshots/settings_not_auth.png"/>
 
 Once authenticated, the Intercom widget will automatically appear on your site.
@@ -33,7 +33,7 @@ NB: This plugin injects a Javascript snippet on your website frontend containing
 # Users
 
 If a `$current_user` is present, we use their email as an identifier in the widget.
-We recommend to enable the [secure mode](https://docs.intercom.io/configuring-intercom/enable-secure-mode) in the settings page.
+We recommend enabling [Identity Verification](https://docs.intercom.io/configuring-intercom/enable-identity-verification) in the settings page.
 
 # Contributing
 

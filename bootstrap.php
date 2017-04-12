@@ -8,43 +8,43 @@ Author URI: https://www.intercom.io
 Version: 2.5.10
  */
 
-class SecureModeCalculator
+class IdentityVerificationCalculator
 {
   private $raw_data = array();
   private $secret_key = "";
 
-  public function __construct($data, $secret_key, $secure_mode)
+  public function __construct($data, $secret_key, $identity_verification)
   {
     $this->raw_data = $data;
     $this->secret_key = $secret_key;
-    $this->secure_mode = $secure_mode;
+    $this->$identity_verification = $identity_verification;
   }
 
-  public function secureModeComponent()
+  public function identityVerificationComponent()
   {
     $secret_key = $this->getSecretKey();
-    $secure_mode = $this->getSecureMode();
-    if (empty($secret_key) || !$secure_mode)
+    $identity_verification = $this->getIdentityVerification();
+    if (empty($secret_key) || !$identity_verification)
     {
-      return $this->emptySecureModeHashComponent();
+      return $this->emptyIdentityVerificationHashComponent();
     }
     if (array_key_exists("user_id", $this->getRawData()))
     {
-      return $this->secureModeHashComponent("user_id");
+      return $this->identityVerificationHashComponent("user_id");
     }
     if (array_key_exists("email", $this->getRawData()))
     {
-      return $this->secureModeHashComponent("email");
+      return $this->identityVerificationHashComponent("email");
     }
-    return $this->emptySecureModeHashComponent();
+    return $this->emptyIdentityVerificationHashComponent();
   }
 
-  private function emptySecureModeHashComponent()
+  private function emptyIdentityVerificationHashComponent()
   {
     return array();
   }
 
-  private function secureModeHashComponent($key)
+  private function identityVerificationHashComponent($key)
   {
     $raw_data = $this->getRawData();
     return array("user_hash" => hash_hmac("sha256", $raw_data[$key], $this->getSecretKey()));
@@ -55,9 +55,9 @@ class SecureModeCalculator
     return $this->secret_key;
   }
 
-  private function getSecureMode()
+  private function getIdentityVerification()
   {
-    return $this->secure_mode;
+    return $this->identity_verification;
   }
 
   private function getRawData()
@@ -97,7 +97,7 @@ END;
     $styles = $this->getStyles();
     $app_id = WordPressEscaper::escAttr($settings['app_id']);
     $secret = WordPressEscaper::escAttr($settings['secret']);
-    $secure_mode = WordPressEscaper::escAttr($settings['secure_mode']);
+    $identity_verification = WordPressEscaper::escAttr($settings['identity_verification']);
     $auth_url = $this->getAuthUrl();
     $dismissable_message = '';
     if (isset($_GET['appId'])) {
@@ -111,8 +111,8 @@ END;
     if (isset($_GET['authenticated'])) {
       $dismissable_message = $this->dismissibleMessage('You successfully authenticated with Intercom');
     }
-    if (isset($_GET['enable_secure_mode'])) {
-      $dismissable_message = $this->dismissibleMessage('Secure Mode successfully enabled');
+    if (isset($_GET['enable_identity_verification'])) {
+      $dismissable_message = $this->dismissibleMessage('Identity Verification successfully enabled');
     }
     $onboarding_markup = $this->getOnboardingLinkIfNoAppId();
 
@@ -180,9 +180,9 @@ END;
                             <button type="submit" class="btn btn__primary cta__submit" style="$styles[button_submit_style]">Save</button>
                           </td>
                         </tr>
-                        <tr style="$styles[app_secret_row_style];$styles[app_id_copy_hidden]" id="intercom_secure_mode">
-                          <th scope="row" style="text-align: center; vertical-align: middle;"><label for="intercom_secure">Secure Mode</label></th>
-                          <td><input id="intercom-secure-mode" name="enable_secure_mode" type="checkbox" $styles[secure_mode_state]></td>
+                        <tr style="$styles[app_secret_row_style];$styles[app_id_copy_hidden]" id="intercom_identity_verification">
+                          <th scope="row" style="text-align: center; vertical-align: middle;"><label for="intercom_secure">Identity Verification</label></th>
+                          <td><input id="intercom-identity-verification" name="enable_identity_verification" type="checkbox" $styles[identity_verification_state]></td>
                         </tr>
                       </tbody>
                     </table>
@@ -197,19 +197,19 @@ END;
     $auth_url = $this->getAuthUrl();
     $secret = WordPressEscaper::escAttr($settings['secret']);
     $app_id = WordPressEscaper::escAttr($settings['app_id']);
-    $auth_url_secure = "";
+    $auth_url_identity_verification = "";
     if (empty($secret) && !empty($app_id)) {
-      $auth_url_secure = $auth_url.'&enable_secure_mode=1';
+      $auth_url_identity_verification = $auth_url.'&enable_identity_verification=1';
     }
     return <<<END
                   </form>
                   <div style="$styles[app_id_copy_hidden]">
                     <div style="$styles[app_secret_link_style]">
-                      <a class="c__blue" href="$auth_url_secure">Authenticate with your intercom application to enable secure mode</a>
+                      <a class="c__blue" href="$auth_url_identity_verification">Authenticate with your intercom application to enable Identity Verification</a>
                     </div>
-                    <p style="font-size:0.86em">Secure mode allows you to make sure that conversations between you and your users are kept private.<br/>
-                      Once you enabled secure mode you cannot disable it.<br/>
-                      <a class="c__blue" href="https://docs.intercom.io/configuring-intercom/enable-secure-mode" target="_blank">Learn more about Secure Mode</a>
+                    <p style="font-size:0.86em">Identity Verification ensures that conversations between you and your users are kept private.<br/>
+                    <br/>
+                      <a class="c__blue" href="https://docs.intercom.io/configuring-intercom/enable-identity-verification" target="_blank">Learn more about Identity Verification</a>
                     </p>
                     <br/>
                     <div style="font-size:0.8em">If the Intercom application associated with your store is incorrect, please <a class="c__blue" href="$auth_url">click here</a> to reconnect with Intercom, to choose a new application.</div>
@@ -223,11 +223,11 @@ END;
     </div>
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
     <script type="text/javascript">
-      $('#intercom-secure-mode').unbind('click').click(function() {
-        $('#intercom-secure-mode').prop('checked', false);
-        if(confirm('Are you sure you want to enable secure mode for Intercom ?'))  {
-          $('#intercom-secure-mode').prop('value', true);
-          $('#intercom-secure-mode').prop('checked', true);
+      $('#intercom-identity-verification').unbind('click').click(function() {
+        $('#intercom-identity-verification').prop('checked', false);
+        if(confirm('Are you sure you want to enable Identity Verification for Intercom ?'))  {
+          $('#intercom-identity-verification').prop('value', true);
+          $('#intercom-identity-verification').prop('checked', true);
           $('form[name="update_settings"]').submit();
         }
       });
@@ -244,16 +244,16 @@ END;
     $styles = array();
     $app_id = WordPressEscaper::escAttr($settings['app_id']);
     $secret = WordPressEscaper::escAttr($settings['secret']);
-    $secure_mode = WordPressEscaper::escAttr($settings['secure_mode']);
+    $identity_verification = WordPressEscaper::escAttr($settings['identity_verification']);
 
-    // Use Case : secure mode enabled : checkbox checked and disabled (can not reverse secure mode)
-    if($secure_mode) {
-      $styles['secure_mode_state'] = 'checked disabled';
+    // Use Case : Identity Verification enabled : checkbox checked and disabled
+    if($identity_verification) {
+      $styles['identity_verification_state'] = 'checked disabled';
     } else {
-      $styles['secure_mode_state'] = '';
+      $styles['identity_verification_state'] = '';
     }
 
-    // Use Case : app_id here but secure mode disabled
+    // Use Case : app_id here but Identity Verification disabled
     if (empty($secret) && !empty($app_id)) {
       $styles['app_secret_row_style'] = 'display: none;';
       $styles['app_secret_link_style'] = '';
@@ -270,12 +270,12 @@ END;
         $styles['button_submit_style'] = '';
         $styles['app_id_copy_hidden'] = 'display: none;';
         $styles['app_id_copy_title'] = '';
-        $styles['secure_mode_state'] = 'disabled'; # Prevent from sending POST data about secure_mode when using app_id form
+        $styles['identity_verification_state'] = 'disabled'; # Prevent from sending POST data about identity_verification when using app_id form
     } else {
       $styles['app_id_class'] = "";
       $styles['button_submit_style'] = 'display: none;';
       $styles['app_id_copy_title'] = 'display: none;';
-      $styles['app_id_state'] = 'disabled'; # Prevent from sending POST data about app_id when using secure_mode form
+      $styles['app_id_state'] = 'disabled'; # Prevent from sending POST data about app_id when using identity_verification form
       $styles['app_id_copy_hidden'] = '';
     }
 
@@ -332,7 +332,7 @@ class IntercomSnippet
   {
     return $this->shutdown_on_logout() . $this->source();
   }
-  
+
   private function shutdown_on_logout()
   {
     return <<<HTML
@@ -372,11 +372,11 @@ class IntercomSnippetSettings
   private $secret = NULL;
   private $wordpress_user = NULL;
 
-  public function __construct($raw_data, $secret = NULL, $secure_mode = false, $wordpress_user = NULL, $constants = array('ICL_LANGUAGE_CODE' => 'language_override'))
+  public function __construct($raw_data, $secret = NULL, $identity_verification = false, $wordpress_user = NULL, $constants = array('ICL_LANGUAGE_CODE' => 'language_override'))
   {
     $this->raw_data = $this->validateRawData($raw_data);
     $this->secret = $secret;
-    $this->secure_mode = $secure_mode;
+    $this->identity_verification = $identity_verification;
     $this->wordpress_user = $wordpress_user;
     $this->constants = $constants;
   }
@@ -396,8 +396,8 @@ class IntercomSnippetSettings
   {
     $user = new IntercomUser($this->wordpress_user, $this->raw_data);
     $settings = $user->buildSettings();
-    $secureModeCalculator = new SecureModeCalculator($settings, $this->secret, $this->secure_mode);
-    $result = array_merge($settings, $secureModeCalculator->secureModeComponent());
+    $identityVerificationCalculator = new IdentityVerificationCalculator($settings, $this->secret, $this->identity_verification);
+    $result = array_merge($settings, $identityVerificationCalculator->identityVerificationComponent());
     $result = $this->mergeConstants($result);
     return $result;
   }
@@ -512,7 +512,7 @@ function add_intercom_snippet()
   $snippet_settings = new IntercomSnippetSettings(
     array("app_id" => WordPressEscaper::escJS($options['app_id'])),
     WordPressEscaper::escJS($options['secret']),
-    WordPressEscaper::escJS($options['secure_mode']),
+    WordPressEscaper::escJS($options['identity_verification']),
     wp_get_current_user()
   );
   $snippet = new IntercomSnippet($snippet_settings);
@@ -537,7 +537,7 @@ function render_intercom_options_page()
     wp_die('You do not have sufficient permissions to access Intercom settings');
   }
   $options = get_option('intercom');
-  $settings_page = new IntercomSettingsPage(array("app_id" => $options['app_id'], "secret" => $options['secret'], "secure_mode" => $options['secure_mode']));
+  $settings_page = new IntercomSettingsPage(array("app_id" => $options['app_id'], "secret" => $options['secret'], "identity_verification" => $options['identity_verification']));
   echo $settings_page->htmlUnclosed();
   wp_nonce_field('intercom-update');
   echo $settings_page->htmlClosed();
@@ -547,16 +547,16 @@ function intercom_settings() {
   register_setting('intercom', 'intercom');
   if (isset($_GET['state']) && wp_verify_nonce($_GET[ 'state'], 'intercom-oauth') && current_user_can('manage_options') && isset($_GET['app_id']) && isset($_GET['secret']) ) {
     $validator = new Validator($_GET, function($x) { return wp_kses(trim($x), array()); });
-    $secure_mode = isset($_GET['enable_secure_mode']);
-    update_option("intercom", array("app_id" => $validator->validAppId(), "secret" => $validator->validSecret(), "secure_mode" => $secure_mode));
-    $redirect_to = $secure_mode ? 'options-general.php?page=intercom&enable_secure_mode=1' : 'options-general.php?page=intercom&authenticated=1';
+    $identity_verification = isset($_GET['enable_identity_verification']);
+    update_option("intercom", array("app_id" => $validator->validAppId(), "secret" => $validator->validSecret(), "identity_verification" => $identity_verification));
+    $redirect_to = $identity_verification ? 'options-general.php?page=intercom&enable_identity_verification=1' : 'options-general.php?page=intercom&authenticated=1';
     wp_safe_redirect(admin_url($redirect_to));
   }
-  if ( current_user_can('manage_options') && isset($_POST[ '_wpnonce']) && wp_verify_nonce($_POST[ '_wpnonce'],'intercom-update') && isset($_POST['enable_secure_mode'])) {
+  if ( current_user_can('manage_options') && isset($_POST[ '_wpnonce']) && wp_verify_nonce($_POST[ '_wpnonce'],'intercom-update') && isset($_POST['enable_identity_verification'])) {
     $options = get_option('intercom');
-    $options["secure_mode"] = true;
+    $options["identity_verification"] = true;
     update_option("intercom", $options);
-    wp_safe_redirect(admin_url('options-general.php?page=intercom&enable_secure_mode=1'));
+    wp_safe_redirect(admin_url('options-general.php?page=intercom&enable_identity_verification=1'));
   }
   if (current_user_can('manage_options') && isset($_POST['app_id']) && isset($_POST[ '_wpnonce']) && wp_verify_nonce($_POST[ '_wpnonce'],'intercom-update')) {
       $options = array();
@@ -565,11 +565,11 @@ function intercom_settings() {
       wp_safe_redirect(admin_url('options-general.php?page=intercom&saved=1'));
   }
 }
-// Enable Secure Mode for customers who already copy/pasted their secret_key before the Oauth2 release.
+// Enable Identity Verification for customers who already copy/pasted their secret_key before the Oauth2 release.
 function patch_oauth() {
   $options = get_option('intercom');
-  if ($options["secret"] && !isset($options["secure_mode"])) {
-    $options["secure_mode"] = true;
+  if ($options["secret"] && !isset($options["identity_verification"])) {
+    $options["identity_verification"] = true;
     update_option("intercom", $options);
   }
 }
