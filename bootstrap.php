@@ -97,7 +97,7 @@ END;
     $styles = $this->getStyles();
     $app_id = WordPressEscaper::escAttr($settings['app_id']);
     $secret = WordPressEscaper::escAttr($settings['secret']);
-    $identity_verification = WordPressEscaper::escAttr($settings['identity_verification']);
+    $identity_verification = WordPressEscaper::escAttr($settings['identity_verification'] ? $settings['identity_verification'] : $settings['secure_mode']);
     $auth_url = $this->getAuthUrl();
     $dismissable_message = '';
     if (isset($_GET['appId'])) {
