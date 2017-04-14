@@ -97,7 +97,7 @@ END;
     $styles = $this->getStyles();
     $app_id = WordPressEscaper::escAttr($settings['app_id']);
     $secret = WordPressEscaper::escAttr($settings['secret']);
-    $identity_verification = WordPressEscaper::escAttr($settings['identity_verification'] ? $settings['identity_verification'] : $settings['secure_mode']);
+    $identity_verification = WordPressEscaper::escAttr($settings['identity_verification']);
     $auth_url = $this->getAuthUrl();
     $dismissable_message = '';
     if (isset($_GET['appId'])) {
@@ -537,7 +537,8 @@ function render_intercom_options_page()
     wp_die('You do not have sufficient permissions to access Intercom settings');
   }
   $options = get_option('intercom');
-  $settings_page = new IntercomSettingsPage(array("app_id" => $options['app_id'], "secret" => $options['secret'], "identity_verification" => $options['identity_verification']));
+  $identity_verification = isset($options['identity_verification']) ? $options['identity_verification'] : $options['secure_mode'];
+  $settings_page = new IntercomSettingsPage(array("app_id" => $options['app_id'], "secret" => $options['secret'], "identity_verification" => $identity_verification));
   echo $settings_page->htmlUnclosed();
   wp_nonce_field('intercom-update');
   echo $settings_page->htmlClosed();
