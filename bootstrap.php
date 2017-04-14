@@ -509,10 +509,11 @@ if (getenv('INTERCOM_PLUGIN_TEST') != '1') {
 function add_intercom_snippet()
 {
   $options = get_option('intercom');
+  $identity_verification = isset($options['identity_verification']) ? $options['identity_verification'] : $options['secure_mode'];
   $snippet_settings = new IntercomSnippetSettings(
     array("app_id" => WordPressEscaper::escJS($options['app_id'])),
     WordPressEscaper::escJS($options['secret']),
-    WordPressEscaper::escJS($options['identity_verification']),
+    WordPressEscaper::escJS($identity_verification),
     wp_get_current_user()
   );
   $snippet = new IntercomSnippet($snippet_settings);
