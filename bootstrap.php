@@ -5,7 +5,7 @@ Plugin URI: https://wordpress.org/plugins/intercom
 Description: Official <a href="https://www.intercom.io">Intercom</a> support for WordPress.
 Author: Intercom
 Author URI: https://www.intercom.io
-Version: 2.5.10
+Version: 2.5.11
  */
 
 class IdentityVerificationCalculator
