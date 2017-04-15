@@ -5,7 +5,7 @@ Plugin URI: https://wordpress.org/plugins/intercom
 Description: Official <a href="https://www.intercom.io">Intercom</a> support for WordPress.
 Author: Intercom
 Author URI: https://www.intercom.io
-Version: 2.5.13
+Version: 2.5.14
  */
 
 class IdentityVerificationCalculator
@@ -17,7 +17,7 @@ class IdentityVerificationCalculator
   {
     $this->raw_data = $data;
     $this->secret_key = $secret_key;
-    $this->$identity_verification = $identity_verification;
+    $this->identity_verification = $identity_verification;
   }
 
   public function identityVerificationComponent()
