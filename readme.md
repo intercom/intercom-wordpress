@@ -33,7 +33,7 @@ NB: This plugin injects a Javascript snippet on your website frontend containing
 # Users
 
 If a `$current_user` is present, we use their email as an identifier in the widget.
-We recommend enabling [Identity Verification](https://docs.intercom.io/configuring-intercom/enable-identity-verification) in the settings page.
+We recommend enabling [Identity Verification](https://docs.intercom.com/configure-intercom-for-your-product-or-site/staying-secure/enable-identity-verification-on-your-web-product) in the settings page.
 
 # Contributing
 
