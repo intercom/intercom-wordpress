@@ -209,7 +209,7 @@ END;
                     </div>
                     <p style="font-size:0.86em">Identity Verification ensures that conversations between you and your users are kept private.<br/>
                     <br/>
-                      <a class="c__blue" href="https://docs.intercom.io/configuring-intercom/enable-identity-verification" target="_blank">Learn more about Identity Verification</a>
+                      <a class="c__blue" href="https://docs.intercom.com/configure-intercom-for-your-product-or-site/staying-secure/enable-identity-verification-on-your-web-product" target="_blank">Learn more about Identity Verification</a>
                     </p>
                     <br/>
                     <div style="font-size:0.8em">If the Intercom application associated with your store is incorrect, please <a class="c__blue" href="$auth_url">click here</a> to reconnect with Intercom, to choose a new application.</div>
