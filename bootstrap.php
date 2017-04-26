@@ -577,7 +577,8 @@ function patch_oauth() {
 }
 
 if (getenv('INTERCOM_PLUGIN_TEST') != '1') {
-  add_action('wp_footer', 'add_intercom_snippet');
+  //Add in priority to load the snippet last
+  add_action('wp_footer', 'add_intercom_snippet', 999);
   add_action('admin_menu', 'add_intercom_settings_page');
   add_action('network_admin_menu', 'add_intercom_settings_page');
   add_action('admin_init', 'patch_oauth');
