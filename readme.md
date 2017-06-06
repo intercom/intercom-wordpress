@@ -30,6 +30,18 @@ Once authenticated, the Intercom widget will automatically appear on your site.
 
 NB: This plugin injects a Javascript snippet on your website frontend containing dynamic user data. Some caching solutions will cache entire pages and should not be used with this plugin. Doing so may cause conversations to be delivered to the wrong user.
 
+# Pass extra parameters to the Intercom Messenger
+
+Using the [Wordpress Hooks API](https://codex.wordpress.org/Plugin_API) `add_filter` method in your Wordpress theme you can pass extra parameters to the Intercom Messenger (see example below):
+
+```php
+add_filter( 'intercom_settings', function( $settings ) {                                                  
+  $settings['user_id'] = $user_id;                
+  return $settings;                                                      
+} );
+```
+
+
 # Users
 
 If a `$current_user` is present, we use their email as an identifier in the widget.
