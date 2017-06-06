@@ -8,14 +8,18 @@ class IntercomSnippetTest extends PHPUnit_Framework_TestCase
 
     $expectedHtml = <<<HTML
 <script data-cfasync="false">
-  var logout_link = document.querySelectorAll('a[href*="wp-login.php?action=logout"]');
-  if (logout_link) {
-    for(var i=0; i < logout_link.length; i++) {
-      logout_link[i].addEventListener( "click", function() {
-        Intercom('shutdown');
-      });
+  document.onreadystatechange = function () {
+    if (document.readyState == "complete") {
+      var logout_link = document.querySelectorAll('a[href*="wp-login.php?action=logout"]');
+      if (logout_link) {
+        for(var i=0; i < logout_link.length; i++) {
+          logout_link[i].addEventListener( "click", function() {
+            Intercom('shutdown');
+          });
+        }
+      }
     }
-  }
+  };
 </script>
 <script data-cfasync="false">
   window.intercomSettings = {"app_id":"foo","name":"Nikola Tesla"};

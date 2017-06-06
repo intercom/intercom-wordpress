@@ -337,16 +337,18 @@ class IntercomSnippet
   {
     return <<<HTML
 <script data-cfasync="false">
-  jQuery(document).ready(function(){
-    var logout_link = document.querySelectorAll('a[href*="wp-login.php?action=logout"]');
-    if (logout_link) {
-      for(var i=0; i < logout_link.length; i++) {
-        logout_link[i].addEventListener( "click", function() {
-          if (Intercom) Intercom('shutdown');
-        });
+  document.onreadystatechange = function () {
+    if (document.readyState == "complete") {
+      var logout_link = document.querySelectorAll('a[href*="wp-login.php?action=logout"]');
+      if (logout_link) {
+        for(var i=0; i < logout_link.length; i++) {
+          logout_link[i].addEventListener( "click", function() {
+            Intercom('shutdown');
+          });
+        }
       }
     }
-  });
+  };
 </script>
 
 HTML;
