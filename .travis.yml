@@ -7,4 +7,4 @@ php:
 before_install:
   - wget https://phar.phpunit.de/phpunit-old.phar
 script:
-  - TEST=1 php phpunit-old.phar
+  - INTERCOM_PLUGIN_TEST=1 php phpunit-old.phar
