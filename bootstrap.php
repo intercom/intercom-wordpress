@@ -423,6 +423,12 @@ class IntercomSnippetSettings
   }
 }
 
+if (getenv('INTERCOM_PLUGIN_TEST') == '1' && !function_exists('apply_filters')) {
+  function apply_filters($_, $value) {
+    return $value;
+  }
+}
+
 class WordPressEscaper
 {
   public static function escAttr($value)
