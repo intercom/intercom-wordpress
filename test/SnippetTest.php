@@ -3,7 +3,7 @@ class IntercomSnippetTest extends PHPUnit_Framework_TestCase
 {
   public function testGeneratedHtml()
   {
-    $settings = new IntercomSnippetSettings(array("app_id" => "foo", "name" => "Nikola Tesla"), NULL, NULL, NULL, array());
+    $settings = new IntercomSnippetSettings(array("app_id" => "foo", "name" => "Nikola Tesla"), NULL, NULL, array());
     $snippet = new IntercomSnippet($settings);
 
     $expectedHtml = <<<HTML
