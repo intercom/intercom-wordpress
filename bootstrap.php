@@ -543,6 +543,5 @@ if (getenv('INTERCOM_PLUGIN_TEST') != '1') {
   add_action('wp_footer', 'add_intercom_snippet');
   add_action('admin_menu', 'add_intercom_settings_page');
   add_action('network_admin_menu', 'add_intercom_settings_page');
-  add_action('admin_init', 'patch_oauth');
   add_action('admin_init', 'intercom_settings');
 }
