@@ -189,7 +189,7 @@ END;
                   </form>
                   <div style="$styles[app_id_copy_hidden]">
                     <div style="$styles[app_secret_link_style]">
-                      <a class="c__blue" href="$auth_url_identity_verification">Authenticate with your intercom application to enable Identity Verification</a>
+                      <a class="c__blue" href="$auth_url_identity_verification">Authenticate with your Intercom application to enable Identity Verification</a>
                     </div>
                     <p style="font-size:0.86em">Identity Verification ensures that conversations between you and your users are kept private.<br/>
                     <br/>
