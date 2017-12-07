@@ -23,6 +23,6 @@ Installing Intercom on your WordPress site takes just a few minutes.
 
 If you aren’t already an Intercom customer, you can find full instructions on signing up and installing Intercom using the WordPress plugin [here](https://docs.intercom.io/install-on-your-product-or-site/other-ways-to-get-started/install-intercom-on-your-wordpress-site).
 
-If you’re already an Intercom customer, you can find instructions in the in-app [setup guide](https://app.intercom.io/a/apps/_/guide/web_integration/web_integration_users). The first thing you’ll need to do is install and activate the plugin - you must be using WordPress v4.2.0 or higher and have the ability to install plugins in order to use this method.
+If you’re already an Intercom customer, you can find instructions in the in-app [setup guide](https://app.intercom.io/a/apps/_/guide/focus_install_platform_setup/focus_install_integrate_packaging_v2). The first thing you’ll need to do is install and activate the plugin - you must be using WordPress v4.2.0 or higher and have the ability to install plugins in order to use this method.
 
 Note: This plugin injects a Javascript snippet on your website frontend containing dynamic user data. Some caching solutions will cache entire pages and should not be used with this plugin. Doing so may cause conversations to be delivered to the wrong user.
