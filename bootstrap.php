@@ -156,7 +156,7 @@ END;
 
                 <div>
                   <div style="font-size:0.87em;$styles[app_id_copy_hidden]">
-                  Learn more about our products : <a class="c__blue" href="https://www.intercom.com/customer-engagement" target="_blank">Engage</a>, <a class="c__blue" href="https://www.intercom.com/customer-support-software/knowledge-base" target="_blank">Educate</a> and <a class="c__blue" href="https://www.intercom.com/customer-support-software/help-desk" target="_blank">Respond</a>.
+                  Learn more about our products : <a class="c__blue" href="https://www.intercom.com/customer-engagement" target="_blank">Messages</a>, <a class="c__blue" href="https://www.intercom.com/customer-support-software/knowledge-base" target="_blank">Articles</a> and <a class="c__blue" href="https://www.intercom.com/customer-support-software/help-desk" target="_blank">Inbox</a>.
                   </div>
                   <form method="post" action="" name="update_settings">
                     <table class="form-table" align="center" style="margin-top: 16px; width: inherit;">
