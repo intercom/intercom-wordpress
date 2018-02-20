@@ -3,7 +3,7 @@ Contributors: bobintercom
 License: Apache 2.0
 Tags: intercom, customer, chat
 Requires at least: 4.2.0
-Tested up to: 4.2.4
+Tested up to: 4.9.4
 
 The official WordPress plugin, built by Intercom.
 
