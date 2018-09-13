@@ -196,7 +196,7 @@ END;
                       <a class="c__blue" href="https://docs.intercom.com/configure-intercom-for-your-product-or-site/staying-secure/enable-identity-verification-on-your-web-product" target="_blank">Learn more about Identity Verification</a>
                     </p>
                     <br/>
-                    <div style="font-size:0.8em">If the Intercom application associated with your Wordpress is incorrect, please <a class="c__blue" href="$auth_url">click here</a> to reconnect with Intercom, to choose a new application.</div>
+                    <div style="font-size:0.8em">If the Intercom application associated with your WordPress is incorrect, please <a class="c__blue" href="$auth_url">click here</a> to reconnect with Intercom, to choose a new application.</div>
                   </div>
                 </div>
               </div>
