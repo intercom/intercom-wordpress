@@ -146,7 +146,7 @@ END;
                   Intercom is now set up and ready to go. You can now chat with your existing and potential new customers, send them targeted messages, and get feedback.
                   <br/>
                   <br/>
-                  <a class="c__blue" href="https://app.intercom.io/a/apps/$app_id" target="_blank">Click here to access your Intercom Team Inbox.</a>
+                  <a class="c__blue" href="https://app.intercom.com/a/apps/$app_id" target="_blank">Click here to access your Intercom Team Inbox.</a>
                   <br/>
                   <br/>
                   Need help? <a class="c__blue" href="https://docs.intercom.io/for-converting-visitors-to-users" target="_blank">Visit our documentation</a> for best practices, tips, and much more.
@@ -287,7 +287,7 @@ END;
     $settings = $this->getSettings();
     $app_id = $settings['app_id'];
     if(!$app_id) {
-      return '<p>Need an Intercom account? <a target="_blank" href="https://app.intercom.io/a/get_started/add_people?signupMethod=integrate&userSource=wordpress">Get started</a>.</p>';
+      return '<p>Need an Intercom account? <a target="_blank" href="https://app.intercom.com/a/get_started/add_people?signupMethod=integrate&userSource=wordpress">Get started</a>.</p>';
     } else {
       return '';
     }

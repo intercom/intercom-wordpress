@@ -16,7 +16,7 @@ INTERCOM_PLUGIN_TEST=1 phpunit
 
 # Test the new version of the plugin with Intercom's Wordpress signup flow
 
-It is mandatory that you fully test the [Intercom wordpress start guide](https://app.intercom.io/a/apps/_/platform/guide/setup_messenger/install_messenger) before you release a new update of the plugin.
+It is mandatory that you fully test the [Intercom wordpress start guide](https://app.intercom.com/a/apps/_/platform/guide/setup_messenger/install_messenger) before you release a new update of the plugin.
 
 # Usage
 
@@ -35,9 +35,9 @@ NB: This plugin injects a Javascript snippet on your website frontend containing
 Using the [Wordpress Hooks API](https://codex.wordpress.org/Plugin_API) `add_filter` method in your Wordpress theme you can pass extra parameters to the Intercom Messenger (see example below):
 
 ```php
-add_filter( 'intercom_settings', function( $settings ) {                                                  
-  $settings['user_id'] = $user_id;                
-  return $settings;                                                      
+add_filter( 'intercom_settings', function( $settings ) {
+  $settings['user_id'] = $user_id;
+  return $settings;
 } );
 ```
 
