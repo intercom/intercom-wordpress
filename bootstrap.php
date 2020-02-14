@@ -102,7 +102,6 @@ END;
     if (isset($_GET['authenticated'])) {
       $dismissable_message = $this->dismissibleMessage('You successfully authenticated with Intercom');
     }
-    $onboarding_markup = $this->getOnboardingLinkIfNoAppId();
 
     return <<<END
 
@@ -133,7 +132,6 @@ END;
                   <img src="https://static.intercomassets.com/assets/oauth/primary-7edb2ebce84c088063f4b86049747c3a.png" srcset="https://static.intercomassets.com/assets/oauth/primary-7edb2ebce84c088063f4b86049747c3a.png 1x, https://static.intercomassets.com/assets/oauth/primary@2x-0d69ca2141dfdfa0535634610be80994.png 2x, https://static.intercomassets.com/assets/oauth/primary@3x-788ed3c44d63a6aec3927285e920f542.png 3x"/>
                 </a>
               </div>
-              $onboarding_markup
             </div>
 
             <div class="t__h1 c__red" style="$styles[app_id_copy_title]">Intercom setup</div>
@@ -146,7 +144,7 @@ END;
                   Intercom is now set up and ready to go. You can now chat with your existing and potential new customers, send them targeted messages, and get feedback.
                   <br/>
                   <br/>
-                  <a class="c__blue" href="https://app.intercom.io/a/apps/$app_id" target="_blank">Click here to access your Intercom Team Inbox.</a>
+                  <a class="c__blue" href="https://app.intercom.com/a/apps/$app_id" target="_blank">Click here to access your Intercom Team Inbox.</a>
                   <br/>
                   <br/>
                   Need help? <a class="c__blue" href="https://docs.intercom.io/for-converting-visitors-to-users" target="_blank">Visit our documentation</a> for best practices, tips, and much more.
@@ -280,17 +278,6 @@ END;
   private function getStyles()
   {
     return $this->styles;
-  }
-
-  private function getOnboardingLinkIfNoAppId()
-  {
-    $settings = $this->getSettings();
-    $app_id = $settings['app_id'];
-    if(!$app_id) {
-      return '<p>Need an Intercom account? <a target="_blank" href="https://app.intercom.io/a/get_started/add_people?signupMethod=integrate&userSource=wordpress">Get started</a>.</p>';
-    } else {
-      return '';
-    }
   }
 }
 
