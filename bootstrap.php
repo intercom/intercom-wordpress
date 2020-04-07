@@ -345,7 +345,7 @@ class IntercomSnippetSettings
 
   public function json()
   {
-    return json_encode(apply_filters("intercom_settings", $this->getRawData()));
+    return json_encode($this->getRawData());
   }
 
   public function appId()
@@ -357,7 +357,7 @@ class IntercomSnippetSettings
   private function getRawData()
   {
     $user = new IntercomUser($this->wordpress_user, $this->raw_data);
-    $settings = $user->buildSettings();
+    $settings = apply_filters("intercom_settings", $user->buildSettings());
     $identityVerificationCalculator = new IdentityVerificationCalculator($settings, $this->secret);
     $result = array_merge($settings, $identityVerificationCalculator->identityVerificationComponent());
     $result = $this->mergeConstants($result);
