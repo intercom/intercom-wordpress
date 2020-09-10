@@ -4,7 +4,9 @@ php:
   - 5.4
   - 5.5
   - 5.6
+  - 7.2
+  - 7.3
 before_install:
-  - wget https://phar.phpunit.de/phpunit-4.8.9.phar
+  - wget -O phpunit https://phar.phpunit.de/phpunit-7.phar
 script:
-  - INTERCOM_PLUGIN_TEST=1 php phpunit-4.8.9.phar
+  - INTERCOM_PLUGIN_TEST=1 php phpunit
