@@ -361,6 +361,7 @@ class IntercomSnippetSettings
     $identityVerificationCalculator = new IdentityVerificationCalculator($settings, $this->secret);
     $result = array_merge($settings, $identityVerificationCalculator->identityVerificationComponent());
     $result = $this->mergeConstants($result);
+    $result['installation_type'] = 'wordpress';
     return $result;
   }
 
