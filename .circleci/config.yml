@@ -1,0 +1,25 @@
+version: 2.1
+
+jobs:
+  build-and-test:
+    docker:
+      - image: cimg/php:5.6
+    steps:
+      - checkout
+      - run:
+          name: Install PHPUnit
+          command: |
+            wget https://phar.phpunit.de/phpunit-4.8.9.phar
+      - run:
+          name: Make PHPUnit executable
+          command: |
+            chmod +x ./phpunit-4.8.9.phar
+      - run:
+          name: Run PHPUnit
+          command: |
+            INTERCOM_PLUGIN_TEST=1 php ./phpunit-4.8.9.phar
+
+workflows:
+  sample:
+    jobs:
+      - build-and-test
