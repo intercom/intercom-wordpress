@@ -30,8 +30,7 @@ Note: This plugin injects a Javascript snippet on your website frontend containi
 == Screenshots ==
 1. Plugin settings authenticate with Intercom settings_not_auth.png
 2. Plugin settings successfully authenticated with Intercom settings_auth.png
-3. Intercom widget used to by customers to communicate with the business widget.png
-
+3. Intercom widget used by customers to communicate with the business widget.png
 == Changelog ==
 
 = 3.0 =

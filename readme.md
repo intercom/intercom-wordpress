@@ -40,7 +40,7 @@ add_filter( 'intercom_settings', function( $settings ) {
 
 # Users
 
-If a `$current_user` is present, we use their email and user_id as an identifier in the widget.
+If a `$current_user` is present, we use their email and ID as an identifier in the widget.
 We recommend enabling [Identity Verification](https://docs.intercom.com/configure-intercom-for-your-product-or-site/staying-secure/enable-identity-verification-on-your-web-product) in the settings page.
 
 # Contributing
