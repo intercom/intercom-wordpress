@@ -87,4 +87,28 @@ class MessengerSecurityCalculatorTest extends TestCase
       $calculator->messengerSecurityComponent()
     );
   }
+
+  public function testExtraJWTData()
+  {
+    putenv('INTERCOM_PLUGIN_TEST_JWT_DATA=' . json_encode(array("custom_data" => "custom_value")));
+
+    $data = array("app_id" => "abcdef", "user_id" => "abcdef", "email" => "test@intercom.io", "name" => "John Doe");
+    $calculator = new MessengerSecurityCalculator($data, "s3cre7");
+    $jwt_data = array(
+      "user_id" => "abcdef",
+      "email" => "test@intercom.io",
+      "name" => "John Doe",
+      "custom_data" => "custom_value",
+      "exp" => TimeProvider::getCurrentTime() + 3600
+    );
+    $jwt = JWT::encode($jwt_data, "s3cre7", 'HS256');
+    $this->assertEquals(
+      array(
+        "app_id" => "abcdef",
+        "intercom_user_jwt" => $jwt
+      ),
+      $calculator->messengerSecurityComponent()
+    );
+    putenv('INTERCOM_PLUGIN_TEST_JWT_DATA=');
+  }
 }

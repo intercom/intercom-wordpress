@@ -79,8 +79,13 @@ class MessengerSecurityCalculator
       $payload["name"] = $raw_data["name"];
     }
 
+    $payload = array_merge($payload, apply_filters("intercom_sensitive_attributes", array()));
     $payload["exp"] = TimeProvider::getCurrentTime() + 3600;
-    $filtered_data["intercom_user_jwt"] = JWT::encode($payload, $this->getSecretKey(), 'HS256');
+
+    $filtered_data["intercom_user_jwt"] = JWT::encode(
+      $payload, $this->getSecretKey(),
+      'HS256'
+    );
 
     return $filtered_data;
   }
@@ -422,7 +427,19 @@ class IntercomSnippetSettings
 }
 
 if (getenv('INTERCOM_PLUGIN_TEST') == '1' && !function_exists('apply_filters')) {
-  function apply_filters($_, $value) {
+  function apply_filters($key, $value) {
+    if ($key == "intercom_sensitive_attributes") {
+      $extra_data_key = 'INTERCOM_PLUGIN_TEST_JWT_DATA';
+    } elseif ($key == "intercom_settings") {
+      $extra_data_key = 'INTERCOM_PLUGIN_TEST_SETTINGS';
+    }
+
+    $extra_data = getenv($extra_data_key);
+    if ($extra_data) {
+      $extra_data = json_decode($extra_data, true);
+      return array_merge($value, $extra_data);
+    }
+
     return $value;
   }
 }
