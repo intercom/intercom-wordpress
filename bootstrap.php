@@ -5,10 +5,33 @@ Plugin URI: https://wordpress.org/plugins/intercom
 Description: Official <a href="https://www.intercom.io">Intercom</a> support for WordPress.
 Author: Intercom
 Author URI: https://www.intercom.io
-Version: 2.6.6
+Version: 3.0.0
  */
 
-class IdentityVerificationCalculator
+require_once __DIR__ . '/vendor/autoload.php';
+use Firebase\JWT\JWT;
+
+class TimeProvider
+{
+    private static $mockTime = null;
+
+    public static function setMockTime($timestamp)
+    {
+        self::$mockTime = $timestamp;
+    }
+
+    public static function resetMockTime()
+    {
+        self::$mockTime = null;
+    }
+
+    public static function getCurrentTime()
+    {
+        return self::$mockTime !== null ? self::$mockTime : time();
+    }
+}
+
+class MessengerSecurityCalculator
 {
   private $raw_data = array();
   private $secret_key = "";
@@ -19,39 +42,54 @@ class IdentityVerificationCalculator
     $this->secret_key = $secret_key;
   }
 
-  public function identityVerificationComponent()
+  public function messengerSecurityComponent()
   {
     $secret_key = $this->getSecretKey();
+
     if (empty($secret_key))
     {
-      return $this->emptyIdentityVerificationHashComponent();
+      return $this->getRawData();
     }
-    if (array_key_exists("user_id", $this->getRawData()))
+    if (array_key_exists("user_id", $this->getRawData()) || array_key_exists("email", $this->getRawData()))
     {
-      return $this->identityVerificationHashComponent("user_id");
+      return $this->messengerSecurityJWTComponent();
     }
-    if (array_key_exists("email", $this->getRawData()))
-    {
-      return $this->identityVerificationHashComponent("email");
-    }
-    return $this->emptyIdentityVerificationHashComponent();
+
+    return $this->getRawData();
   }
 
-  private function emptyIdentityVerificationHashComponent()
-  {
-    return array();
-  }
-
-  private function identityVerificationHashComponent($key)
+  private function messengerSecurityJWTComponent()
   {
     $raw_data = $this->getRawData();
-    return array("user_hash" => hash_hmac("sha256", $raw_data[$key], $this->getSecretKey()));
+
+    $filtered_data = $raw_data;
+    $payload = array();
+
+    if (array_key_exists("email", $filtered_data)) {
+      unset($filtered_data["email"]);
+      $payload["user_id"] = $raw_data["email"];
+      $payload["email"] = $raw_data["email"];
+    }
+    if (array_key_exists("user_id", $filtered_data)) {
+      unset($filtered_data["user_id"]);
+      $payload["user_id"] = $raw_data["user_id"];
+    }
+    if (array_key_exists("name", $filtered_data)) {
+      unset($filtered_data["name"]);
+      $payload["name"] = $raw_data["name"];
+    }
+
+    $payload["exp"] = TimeProvider::getCurrentTime() + 3600;
+    $filtered_data["intercom_user_jwt"] = JWT::encode($payload, $this->getSecretKey(), 'HS256');
+
+    return $filtered_data;
   }
 
   private function getSecretKey()
   {
     return $this->secret_key;
   }
+
   private function getRawData()
   {
     return $this->raw_data;
@@ -357,10 +395,9 @@ class IntercomSnippetSettings
   private function getRawData()
   {
     $user = new IntercomUser($this->wordpress_user, $this->raw_data);
-    $settings = apply_filters("intercom_settings", $user->buildSettings());
-    $identityVerificationCalculator = new IdentityVerificationCalculator($settings, $this->secret);
-    $result = array_merge($settings, $identityVerificationCalculator->identityVerificationComponent());
-    $result = $this->mergeConstants($result);
+    $messengerSecurityCalculator = new MessengerSecurityCalculator($user->buildSettings(), $this->secret);
+    $settings = $messengerSecurityCalculator->messengerSecurityComponent();
+    $result = $this->mergeConstants(apply_filters("intercom_settings", $settings));
     $result['installation_type'] = 'wordpress';
     return $result;
   }
@@ -435,6 +472,10 @@ class IntercomUser
     if (!empty($this->wordpress_user->user_email))
     {
       $this->settings["email"] = WordPressEscaper::escJS($this->wordpress_user->user_email);
+    }
+    if (!empty($this->wordpress_user->ID))
+    {
+      $this->settings["user_id"] = WordPressEscaper::escJS($this->wordpress_user->ID);
     }
     if (!empty($this->wordpress_user->display_name))
     {

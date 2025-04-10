@@ -1,24 +1,90 @@
 <?php
-class IdentityVerificationCalculatorTest extends PHPUnit_Framework_TestCase
+
+use PHPUnit\Framework\TestCase;
+use Firebase\JWT\JWT;
+
+class MessengerSecurityCalculatorTest extends TestCase
 {
-  public function testHashEmail()
+  protected function setUp(): void
   {
-    $data = array("email" => "test@intercom.io");
-    $calculator = new IdentityVerificationCalculator($data, "s3cre7");
-    $this->assertEquals(array("user_hash" => "844240a2deab99438ade8e7477aa832e22adb0e1eb1ad7754ff8d4054fb63869"), $calculator->identityVerificationComponent());
+    parent::setUp();
+    // Freeze time to a specific timestamp
+    TimeProvider::setMockTime(strtotime('2024-04-08 12:00:00'));
   }
 
-  public function testHashUserId()
+  protected function tearDown(): void
   {
-    $data = array("user_id" => "abcdef", "email" => "test@intercom.io");
-    $calculator = new IdentityVerificationCalculator($data, "s3cre7");
-    $this->assertEquals(array("user_hash" => "532cd9cd6bfa49528cf2503db0743bb72456bda2cb7424d2894c5b11f6cad6cf"), $calculator->identityVerificationComponent());
+    TimeProvider::resetMockTime();
+    parent::tearDown();
+  }
+
+  public function testEmailJWT()
+  {
+    $data = array("app_id" => "abcdef", "email" => "test@intercom.io");
+    $calculator = new MessengerSecurityCalculator($data, "s3cre7");
+    $jwt_data = array(
+      "user_id" => "test@intercom.io",
+      "email" => "test@intercom.io",
+      "exp" => TimeProvider::getCurrentTime() + 3600
+    );
+    $jwt = JWT::encode($jwt_data, "s3cre7", 'HS256');
+    $this->assertEquals(
+      array(
+        "app_id" => "abcdef",
+        "intercom_user_jwt" => $jwt
+      ),
+      $calculator->messengerSecurityComponent()
+    );
+  }
+
+  public function testUserIdEmailJWT()
+  {
+    $data = array("app_id" => "abcdef", "user_id" => "abcdef", "email" => "test@intercom.io");
+    $calculator = new MessengerSecurityCalculator($data, "s3cre7");
+    $jwt_data = array(
+      "user_id" => "abcdef",
+      "email" => "test@intercom.io",
+      "exp" => TimeProvider::getCurrentTime() + 3600
+    );
+    $jwt = JWT::encode($jwt_data, "s3cre7", 'HS256');
+    $this->assertEquals(
+      array(
+        "app_id" => "abcdef",
+        "intercom_user_jwt" => $jwt
+      ),
+      $calculator->messengerSecurityComponent()
+    );
+  }
+
+  public function testUserIdEmailNameJWT()
+  {
+    $data = array("app_id" => "abcdef", "user_id" => "abcdef", "email" => "test@intercom.io", "name" => "John Doe");
+    $calculator = new MessengerSecurityCalculator($data, "s3cre7");
+    $jwt_data = array(
+      "user_id" => "abcdef",
+      "email" => "test@intercom.io",
+      "name" => "John Doe",
+      "exp" => TimeProvider::getCurrentTime() + 3600
+    );
+    $jwt = JWT::encode($jwt_data, "s3cre7", 'HS256');
+    $this->assertEquals(
+      array(
+        "app_id" => "abcdef",
+        "intercom_user_jwt" => $jwt
+      ),
+      $calculator->messengerSecurityComponent()
+    );
   }
 
   public function testEmpty()
   {
-    $data = array();
-    $calculator = new IdentityVerificationCalculator($data, "s3cre7");
-    $this->assertEquals(array(), $calculator->identityVerificationComponent());
+    $data = array("app_id" => "abcdef");
+    $calculator = new MessengerSecurityCalculator($data, "s3cre7");
+    $this->assertEquals(
+      array(
+        "app_id" => "abcdef",
+      ),
+      $calculator->messengerSecurityComponent()
+    );
   }
 }

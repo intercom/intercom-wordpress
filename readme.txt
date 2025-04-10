@@ -1,28 +1,45 @@
-=== Plugin Name ===
-Contributors: bobintercom
+=== Intercom ===
+Contributors: bobintercom, jacopointercom
+Tags: intercom, ai, customer, chat
+Requires at least: 4.7.0
+Tested up to: 6.7.2
+Requires PHP: 7.2
 License: Apache 2.0
-Tags: intercom, customer, chat
-Requires at least: 4.2.0
-Tested up to: 6.4.3
+Stable tag: 3.0
 
-The official WordPress plugin, built by Intercom.
-
-Chat with visitors to your website in real-time, capture them as leads, and convert them to customers.
+Official Intercom WordPress plugin: Engage visitors in real time, power growth with AI, and convert leads into loyal customers.
 
 == Description ==
 
-[Intercom](https://www.intercom.io/) is a fundamentally new way for internet businesses to communicate with customers, personally, at scale. It's a customer communication platform with a suite of integrated products for every team – including sales, marketing, product, and support. Our products enable targeted communication with customers on your website, inside your web and mobile apps, and by email.
+[Intercom](https://www.intercom.com/) is a next-generation customer communications platform that combines powerful live chat, proactive messaging, and advanced AI solutions — like our Fin AI chatbot — to help businesses instantly connect with customers.
 
-With this plugin, you can add the Intercom Messenger to your website in just a few clicks and start chatting to customers and visitors to your website right away.
-
-Your logged-in customers will be tracked in Intercom as users, and visitors who aren’t customers (or aren’t logged in) will be tracked as leads.
+By installing the Intercom WordPress plugin, you can seamlessly add the Messenger to your site, track both logged-in users and visitors, and engage them right away. With Intercom’s industry-leading AI at your fingertips, you’ll deliver fast, personalized support and drive growth more effectively than ever before.
 
 == Installation ==
 
 Installing Intercom on your WordPress site takes just a few minutes.
 
-You can find full instructions on signing up and installing Intercom using the WordPress plugin [here](https://docs.intercom.io/install-on-your-product-or-site/other-ways-to-get-started/install-intercom-on-your-wordpress-site).
+You can find full instructions on signing up and installing Intercom using the WordPress plugin [here](https://www.intercom.com/help/en/articles/173-install-intercom-on-your-wordpress-site).
 
-If you’re already an Intercom customer, you can also find instructions in the in-app [setup guide](https://app.intercom.com/a/apps/_/platform/guide) or [app store](https://app.intercom.com/a/apps/_/appstore?app_package_code=wordpress&search=wordpress). The first thing you’ll need to do is install and activate the plugin - you must be using WordPress v4.2.0 or higher and have the ability to install plugins in order to use this method.
+If you’re already an Intercom customer, you can also find instructions in the in-app [setup guide](https://app.intercom.com/a/apps/_/platform/guide) or [app store](https://app.intercom.com/a/apps/_/appstore?app_package_code=wordpress&search=wordpress).
+
+The first thing you’ll need to do is install and activate the plugin - you must be using WordPress v4.9.0 or higher and have the ability to install plugins in order to use this method.
 
 Note: This plugin injects a Javascript snippet on your website frontend containing dynamic user data. Some caching solutions will cache entire pages and should not be used with this plugin. Doing so may cause conversations to be delivered to the wrong user.
+
+== Screenshots ==
+1. Plugin settings authenticate with Intercom settings_not_auth.png
+2. Plugin settings successfully authenticated with Intercom settings_auth.png
+3. Intercom widget used to by customers to communicate with the business widget.png
+
+== Changelog ==
+
+= 3.0 =
+* Replaced user_hash with intercom_user_jwt https://www.intercom.com/help/en/articles/10589769-authenticating-users-in-the-messenger-with-json-web-tokens-jwts.
+* Updated readme to follow guidelines.
+* Added missing tests.
+
+== Upgrade Notice ==
+
+= 3.0 =
+Upgrade the security of your messenger with the introduction of JWT - https://www.intercom.com/help/en/articles/10589769-authenticating-users-in-the-messenger-with-json-web-tokens-jwts
