@@ -5,7 +5,7 @@ Requires at least: 4.7.0
 Tested up to: 6.7.2
 Requires PHP: 7.2
 License: Apache 2.0
-Stable tag: 3.0
+Stable tag: 3.0.0
 
 Official Intercom WordPress plugin: Engage visitors in real time, power growth with AI, and convert leads into loyal customers.
 
