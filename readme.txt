@@ -5,7 +5,7 @@ Requires at least: 4.7.0
 Tested up to: 6.7.2
 Requires PHP: 7.2
 License: Apache 2.0
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 
 Official Intercom WordPress plugin: Engage visitors in real time, power growth with AI, and convert leads into loyal customers.
 
@@ -32,13 +32,25 @@ Note: This plugin injects a Javascript snippet on your website frontend containi
 2. Plugin settings successfully authenticated with Intercom settings_auth.png
 3. Intercom widget used by customers to communicate with the business widget.png
 == Changelog ==
+= 3.0.1 =
+
+https://github.com/intercom/intercom-wordpress/pull/130
+* Added version tracking to help Intercom provide better support by identifying which plugin version is in use.
+
+https://github.com/intercom/intercom-wordpress/pull/88
+* Loads Intercom messenger last to ensure JQuery is present. 
 
 = 3.0.0 =
+
+https://github.com/intercom/intercom-wordpress/pull/127
 * Replaced user_hash with intercom_user_jwt https://www.intercom.com/help/en/articles/10589769-authenticating-users-in-the-messenger-with-json-web-tokens-jwts.
 * Updated readme to follow guidelines.
 * Added missing tests.
 
 == Upgrade Notice ==
+
+= 3.0.1 =
+Help Intercom provide better support by sharing the plugin version is in use.
 
 = 3.0.0 =
 Upgrade the security of your messenger with the introduction of JWT - https://www.intercom.com/help/en/articles/10589769-authenticating-users-in-the-messenger-with-json-web-tokens-jwts
