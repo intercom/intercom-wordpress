@@ -4,8 +4,25 @@ class FakeWordPressUserForSnippetTest
   public $user_email = "foo@bar.com";
 }
 
-class IntercomSnippetSettingsTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\MockObject\MockObject;
+use Firebase\JWT\JWT;
+
+class IntercomSnippetSettingsTest extends TestCase
 {
+  protected function setUp(): void
+  {
+    parent::setUp();
+    // Freeze time to a specific timestamp
+    TimeProvider::setMockTime(strtotime('2024-04-08 12:00:00'));
+  }
+
+  protected function tearDown(): void
+  {
+    TimeProvider::resetMockTime();
+    parent::tearDown();
+  }
+
   public function testJSONRendering()
   {
     $snippet_settings = new IntercomSnippetSettings(array("app_id" => "bar"));
@@ -13,8 +30,14 @@ class IntercomSnippetSettingsTest extends PHPUnit_Framework_TestCase
   }
   public function testJSONRenderingWithIdentityVerification()
   {
-    $snippet_settings = new IntercomSnippetSettings(array("app_id" => "bar"), "foo", new FakeWordPressUserForSnippetTest());
-    $this->assertEquals("{\"app_id\":\"bar\",\"email\":\"foo@bar.com\",\"user_hash\":\"a95b0a1ab461c0721d91fbe32a5f5f2a27ac0bfa4bfbcfced168173fa80d4e14\",\"installation_type\":\"wordpress\"}", $snippet_settings->json());
+    $snippet_settings = new IntercomSnippetSettings(array("app_id" => "bar"), "s3cre7", new FakeWordPressUserForSnippetTest());
+    $jwt_data = array(
+      "user_id" => "foo@bar.com",
+      "email" => "foo@bar.com",
+      "exp" => TimeProvider::getCurrentTime() + 3600
+    );
+    $jwt = JWT::encode($jwt_data, "s3cre7", 'HS256'); 
+    $this->assertEquals('{"app_id":"bar","intercom_user_jwt":"'.$jwt.'","installation_type":"wordpress"}', $snippet_settings->json());
   }
   public function testJSONRenderingWithIdentityVerificationAndNoSecret()
   {
@@ -39,11 +62,9 @@ class IntercomSnippetSettingsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals("bar", $snippet_settings->appId());
   }
 
-  /**
-  * @expectedException Exception
-  */
   public function testValidation()
   {
+    $this->expectException(\Exception::class);
     $snippet = new IntercomSnippetSettings(array("foo" => "bar"));
   }
 }

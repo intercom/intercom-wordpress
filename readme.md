@@ -4,7 +4,7 @@
 
 # Compatibility
 
-Requires PHP 5.6 or higher.
+Requires PHP 7.2 or higher.
 
 # Local Testing
 
@@ -26,13 +26,13 @@ Once authenticated, the Intercom widget will automatically appear on your site.
 
 NB: This plugin injects a Javascript snippet on your website frontend containing dynamic user data. Some caching solutions will cache entire pages and should not be used with this plugin. Doing so may cause conversations to be delivered to the wrong user.
 
-# Pass extra parameters to the Intercom Messenger
+# Pass custom data attributes to the Intercom Messenger
 
-Using the [WordPress Hooks API](https://codex.wordpress.org/Plugin_API) `add_filter` method in your WordPress theme you can pass extra parameters to the Intercom Messenger (see example below):
+Using the [add_filter](https://developer.wordpress.org/reference/functions/add_filter) method in your WordPress theme or custom plugin you can pass [custom data attributes](https://www.intercom.com/help/en/articles/179-create-and-track-custom-data-attributes-cdas) to the Intercom Messenger (see example below):
 
 ```php
 add_filter( 'intercom_settings', function( $settings ) {
-  $settings['user_id'] = $user_id;
+  $settings['customer_type'] = $customer_type;
   return $settings;
 } );
 ```
@@ -40,7 +40,7 @@ add_filter( 'intercom_settings', function( $settings ) {
 
 # Users
 
-If a `$current_user` is present, we use their email as an identifier in the widget.
+If a `$current_user` is present, we use their email and ID as an identifier in the widget.
 We recommend enabling [Identity Verification](https://docs.intercom.com/configure-intercom-for-your-product-or-site/staying-secure/enable-identity-verification-on-your-web-product) in the settings page.
 
 # Contributing

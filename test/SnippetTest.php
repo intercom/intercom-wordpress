@@ -1,5 +1,7 @@
 <?php
-class IntercomSnippetTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class IntercomSnippetTest extends TestCase
 {
   public function testGeneratedHtml()
   {
