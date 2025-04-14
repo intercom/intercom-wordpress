@@ -5,8 +5,10 @@ Plugin URI: https://wordpress.org/plugins/intercom
 Description: Official <a href="https://www.intercom.io">Intercom</a> support for WordPress.
 Author: Intercom
 Author URI: https://www.intercom.io
-Version: 3.0.0
+Version: 3.0.1
  */
+
+define('INTERCOM_PLUGIN_VERSION', '3.0.1');
 
 require_once __DIR__ . '/vendor/autoload.php';
 use Firebase\JWT\JWT;
@@ -404,6 +406,7 @@ class IntercomSnippetSettings
     $settings = $messengerSecurityCalculator->messengerSecurityComponent();
     $result = $this->mergeConstants(apply_filters("intercom_settings", $settings));
     $result['installation_type'] = 'wordpress';
+    $result['integration_version'] = INTERCOM_PLUGIN_VERSION;
     return $result;
   }
 
@@ -586,9 +589,9 @@ function intercom_settings() {
 }
 
 if (getenv('INTERCOM_PLUGIN_TEST') != '1') {
-  //Add in priority to load the snippet last
-  add_action('wp_footer', 'add_intercom_snippet', 999);
   add_action('admin_menu', 'add_intercom_settings_page');
   add_action('network_admin_menu', 'add_intercom_settings_page');
   add_action('admin_init', 'intercom_settings');
+  // Add in priority to load the snippet last
+  add_action('wp_footer', 'add_intercom_snippet', 999);
 }
