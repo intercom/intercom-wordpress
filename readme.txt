@@ -33,12 +33,12 @@ Note: This plugin injects a Javascript snippet on your website frontend containi
 3. Intercom widget used by customers to communicate with the business widget.png
 == Changelog ==
 
-= 3.0 =
+= 3.0.0 =
 * Replaced user_hash with intercom_user_jwt https://www.intercom.com/help/en/articles/10589769-authenticating-users-in-the-messenger-with-json-web-tokens-jwts.
 * Updated readme to follow guidelines.
 * Added missing tests.
 
 == Upgrade Notice ==
 
-= 3.0 =
+= 3.0.0 =
 Upgrade the security of your messenger with the introduction of JWT - https://www.intercom.com/help/en/articles/10589769-authenticating-users-in-the-messenger-with-json-web-tokens-jwts
