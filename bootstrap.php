@@ -566,7 +566,7 @@ function render_intercom_options_page()
     wp_die('You do not have sufficient permissions to access Intercom settings');
   }
   $options = get_option('intercom');
-  $settings_page = new IntercomSettingsPage(array("app_id" => $options['app_id'], "secret" => $options['secret']));
+  $settings_page = new IntercomSettingsPage(array("app_id" => $options['app_id'], "secret" => $options['secret'], "identity_verification" => ''));
   echo $settings_page->htmlUnclosed();
   wp_nonce_field('intercom-update');
   echo $settings_page->htmlClosed();
