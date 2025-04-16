@@ -5,7 +5,7 @@ Requires at least: 4.7.0
 Tested up to: 6.7.2
 Requires PHP: 7.2
 License: Apache 2.0
-Stable tag: 3.0.1
+Stable tag: 3.0.2
 
 Official Intercom WordPress plugin: Engage visitors in real time, power growth with AI, and convert leads into loyal customers.
 
@@ -32,6 +32,11 @@ Note: This plugin injects a Javascript snippet on your website frontend containi
 2. Plugin settings successfully authenticated with Intercom settings_auth.png
 3. Intercom widget used by customers to communicate with the business widget.png
 == Changelog ==
+= 3.0.2 =
+
+https://github.com/intercom/intercom-wordpress/pull/131
+* Updated version attribute to avoid it getting sent in the user data.
+
 = 3.0.1 =
 
 https://github.com/intercom/intercom-wordpress/pull/130
@@ -48,6 +53,8 @@ https://github.com/intercom/intercom-wordpress/pull/127
 * Added missing tests.
 
 == Upgrade Notice ==
+= 3.0.1 =
+Updated version attribute name to avoid setting it as part of user data.
 
 = 3.0.1 =
 Help Intercom provide better support by sharing the plugin version is in use.
