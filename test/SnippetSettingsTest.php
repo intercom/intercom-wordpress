@@ -26,7 +26,7 @@ class IntercomSnippetSettingsTest extends TestCase
   public function testJSONRendering()
   {
     $snippet_settings = new IntercomSnippetSettings(array("app_id" => "bar"));
-    $this->assertEquals("{\"app_id\":\"bar\",\"installation_type\":\"wordpress\",\"integration_version\":\"" . INTERCOM_PLUGIN_VERSION . "\"}", $snippet_settings->json());
+    $this->assertEquals("{\"app_id\":\"bar\",\"installation_type\":\"wordpress\",\"installation_version\":\"" . INTERCOM_PLUGIN_VERSION . "\"}", $snippet_settings->json());
   }
   public function testJSONRenderingWithIdentityVerification()
   {
@@ -37,23 +37,23 @@ class IntercomSnippetSettingsTest extends TestCase
       "exp" => TimeProvider::getCurrentTime() + 3600
     );
     $jwt = JWT::encode($jwt_data, "s3cre7", 'HS256'); 
-    $this->assertEquals('{"app_id":"bar","intercom_user_jwt":"'.$jwt.'","installation_type":"wordpress","integration_version":"' . INTERCOM_PLUGIN_VERSION . '"}', $snippet_settings->json());
+    $this->assertEquals('{"app_id":"bar","intercom_user_jwt":"'.$jwt.'","installation_type":"wordpress","installation_version":"' . INTERCOM_PLUGIN_VERSION . '"}', $snippet_settings->json());
   }
   public function testJSONRenderingWithIdentityVerificationAndNoSecret()
   {
     $snippet_settings = new IntercomSnippetSettings(array("app_id" => "bar"), NULL, new FakeWordPressUserForSnippetTest());
-    $this->assertEquals("{\"app_id\":\"bar\",\"email\":\"foo@bar.com\",\"installation_type\":\"wordpress\",\"integration_version\":\"" . INTERCOM_PLUGIN_VERSION . "\"}", $snippet_settings->json());
+    $this->assertEquals("{\"app_id\":\"bar\",\"email\":\"foo@bar.com\",\"installation_type\":\"wordpress\",\"installation_version\":\"" . INTERCOM_PLUGIN_VERSION . "\"}", $snippet_settings->json());
   }
   public function testInstallationType()
   {
     $snippet_settings = new IntercomSnippetSettings(array("app_id" => "bar"));
-    $this->assertEquals("{\"app_id\":\"bar\",\"installation_type\":\"wordpress\",\"integration_version\":\"" . INTERCOM_PLUGIN_VERSION . "\"}", $snippet_settings->json());
+    $this->assertEquals("{\"app_id\":\"bar\",\"installation_type\":\"wordpress\",\"installation_version\":\"" . INTERCOM_PLUGIN_VERSION . "\"}", $snippet_settings->json());
   }
   public function testIclLanguageConstant()
   {
     define('ICL_LANGUAGE_CODE', 'fr');
     $snippet_settings = new IntercomSnippetSettings(array("app_id" => "bar"));
-    $this->assertEquals("{\"app_id\":\"bar\",\"language_override\":\"fr\",\"installation_type\":\"wordpress\",\"integration_version\":\"" . INTERCOM_PLUGIN_VERSION . "\"}", $snippet_settings->json());
+    $this->assertEquals("{\"app_id\":\"bar\",\"language_override\":\"fr\",\"installation_type\":\"wordpress\",\"installation_version\":\"" . INTERCOM_PLUGIN_VERSION . "\"}", $snippet_settings->json());
   }
 
   public function testAppId()
