@@ -379,6 +379,8 @@ class IntercomSnippetSettings
   private $raw_data = array();
   private $secret = NULL;
   private $wordpress_user = NULL;
+  private $constants = array();
+
 
   public function __construct($raw_data, $secret = NULL, $wordpress_user = NULL, $constants = array('ICL_LANGUAGE_CODE' => 'language_override'))
   {
